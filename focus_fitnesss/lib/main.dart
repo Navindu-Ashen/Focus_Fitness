@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/Admin_Panel/admHome.dart';
 import 'package:focus_fitnesss/Screens/home.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +24,10 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
+            if(snapshot.data!.uid == "hmp1M611rkaEXHTXY8YHJZn5nVw1"){
+              return const AdminHomeScreen();
+            }
+            print(snapshot.data!.uid + "..........................................................");
             return const HomeScreen();
           }
           return const LoginPage();
