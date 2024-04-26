@@ -24,10 +24,11 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            if(snapshot.data!.uid == "hmp1M611rkaEXHTXY8YHJZn5nVw1"){
+            if (snapshot.data!.uid == "hmp1M611rkaEXHTXY8YHJZn5nVw1") {
+              // FirebaseAuth.instance.signOut();
+              // print("Sign out .......................................");
               return const AdminHomeScreen();
             }
-            print(snapshot.data!.uid + "..........................................................");
             return const HomeScreen();
           }
           return const LoginPage();

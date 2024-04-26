@@ -74,6 +74,8 @@ class _SignupPageState extends State<SignupPage> {
         "email": enteredEmail,
         "contact-number": enteredContactNumber,
         "image-url": imageUrl,
+        "user-uid": FirebaseAuth.instance.currentUser!.uid,
+        "schedule" : "",
       });
 
       _form.currentState!.reset();

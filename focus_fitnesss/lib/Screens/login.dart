@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/admLogin.dart';
 import 'package:focus_fitnesss/Screens/signup.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -20,6 +21,23 @@ class _LoginPageState extends State<LoginPage> {
   bool isObsecured = true;
 
   void _submit() async {
+    _form.currentState!.save();
+    if (userEmail == "admin" && userPassword == "admin") {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const AdminLoginScreen(),
+        ),
+      );
+      return;
+    } 
+    // else if (userEmail == "admin@gmail.com") {
+    //   Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(
+    //       builder: (ctx) => const LoginPage(),
+    //     ),
+    //   );
+    //   return;
+    // }
     final _isValid = _form.currentState!.validate();
 
     if (!_isValid) {

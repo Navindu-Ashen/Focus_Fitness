@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/Admin_Panel/admHome.dart';
+import 'package:focus_fitnesss/Screens/login.dart';
+import 'package:focus_fitnesss/main.dart';
 
 final _firebase = FirebaseAuth.instance;
-
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -51,7 +53,15 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     setState(() {
       _isAuthenticating = false;
     });
+
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) {
+      return const MyApp();
+    }), (r) {
+      return false;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -115,7 +125,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                       fontWeight: FontWeight.w500),
                                 ),
                                 const Text(
-                                  "LOGIN",
+                                  "ADMIN LOGIN",
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w900,
@@ -124,7 +134,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                   ),
                                 ),
                                 const Text(
-                                  "Welcome to Your Ultimate Training Companion",
+                                  "Login with your admin credentials",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -140,7 +150,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                   decoration: InputDecoration(
                                     prefixIcon:
                                         const Icon(Icons.email_outlined),
-                                    labelText: "Your Email",
+                                    labelText: "Admin Email",
                                     labelStyle: const TextStyle(
                                       color: Color.fromARGB(255, 172, 172, 172),
                                     ),
@@ -181,7 +191,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                         color: Colors.grey,
                                       ),
                                     ),
-                                    labelText: "Your Password",
+                                    labelText: "Admin Password",
                                     labelStyle: const TextStyle(
                                       color: Color.fromARGB(255, 172, 172, 172),
                                     ),
@@ -203,22 +213,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                     return null;
                                   },
                                 ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: const Text(
-                                        "Forgot Password?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+
                                 const SizedBox(
                                   height: 20,
                                 ),
@@ -281,7 +276,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Don't have an account?",
+                                      "Forgot password ?",
                                       style: TextStyle(
                                           fontSize: 13, color: Colors.black),
                                     ),
@@ -290,7 +285,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                 TextButton(
                                   onPressed: () {},
                                   child: const Text(
-                                    "CREATE AN ACCOUNT",
+                                    "HELP SECTION",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
