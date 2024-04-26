@@ -3,7 +3,7 @@ import 'package:focus_fitnesss/Models/recipes.dart';
 List<Recipes> recipe = [
   Recipes(
     title: "One-Pot Garlicky\nShrimp & Spinach",
-    image: "assets/r1.png",
+    image: "assets/r1.jpg",
     description:
         "Shrimp, spinach and garlic brown and cook quickly for a simple one-pot weeknight dinner. A fast pan sauce gets life from zesty lemon juice, warm crushed red pepper and herby parsley.",
     ing:
@@ -47,7 +47,7 @@ List<Recipes> recipe = [
   ),
   Recipes(
     title: "Cabbage &\nKielbasa Skillet",
-    image: "assets/r5.png",
+    image: "assets/r5.jpg",
     description:
         "Smoky sausage, tender cabbage and sweet apples, along with mustard and cider vinegar, create a perfect balance of flavor in this hearty skillet dinner.",
     ing:

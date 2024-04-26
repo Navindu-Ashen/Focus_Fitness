@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               height: 300,
-              decoration: BoxDecoration(color: Colors.amber),
+              decoration: const BoxDecoration(color: Colors.amber),
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("schedules")
@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     reverse: false,
                     itemCount: loadedData.length,
                     itemBuilder: (context, index) {
+                      // ignore: unused_local_variable
                       final currentData = loadedData[index].data();
 
                       return Center(
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () {},
-                                child: Text(
+                                child: const Text(
                                   "test",
                                 ),
                               ),
