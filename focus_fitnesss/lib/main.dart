@@ -4,6 +4,7 @@ import 'package:focus_fitnesss/Screens/Admin_Panel/admHome.dart';
 import 'package:focus_fitnesss/Screens/home.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
               // print("Sign out .......................................");
               return const AdminHomeScreen();
             }
-            return const HomeScreen();
+            return const RecipePage();
           }
-          return const LoginPage();
+          return const RecipePage();
         },
       ),
     );
