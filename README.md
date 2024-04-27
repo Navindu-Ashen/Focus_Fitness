@@ -5,7 +5,6 @@ This Gym Management App is a mobile application developed using Flutter and Fire
 ## Features
 
 - **Member Management:** Keep track of member details, attendance, membership plans, and payments.
-- **Class Scheduling:** Schedule and manage classes, assign instructors, and track attendance.
 - **Payment Tracking:** Monitor member payments, send payment reminders, and generate payment reports.
 - **Notifications:** Send automated notifications for class schedules, payment reminders, and other important updates.
 - **Admin Dashboard:** Accessible admin dashboard for easy management of all gym activities.
@@ -58,5 +57,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - We would like to thank the Flutter and Firebase communities for their excellent documentation and support.
 
 ---
-
-Feel free to customize it further based on your project's specific details and requirements!
