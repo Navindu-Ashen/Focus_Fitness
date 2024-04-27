@@ -10,6 +10,14 @@ class TodayActivity extends StatefulWidget {
 class _TodayActivityState extends State<TodayActivity> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Text(
+          "Today's",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
   }
 }

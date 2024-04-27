@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'package:focus_fitnesss/Screens/today_activity.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
@@ -11,79 +12,78 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentTab = 1;
+  Widget? currentContent;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
+    currentContent = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Container(
-                color: const Color.fromARGB(255, 164, 162, 162),
-                width: double.infinity,
-                height: 75,
-                child: const Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: AssetImage("assets/p1.png"),
-                      ),
+            Container(
+              color: const Color.fromARGB(255, 164, 162, 162),
+              width: double.infinity,
+              height: 75,
+              child: const Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
+                    child: CircleAvatar(
+                      radius: 35,
+                      backgroundImage: AssetImage("assets/p1.png"),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, left: 110),
-                      child: Text(
-                        "Welcome Back!",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500),
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 110),
+                    child: Text(
+                      "Welcome Back!",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 51, 49, 49),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 25, left: 110),
-                      child: Text(
-                        "Navindu Dissanayake",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 25, left: 110),
+                    child: Text(
+                      "Navindu Dissanayake",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 50, left: 110),
-                      child: Text(
-                        "Your current plan :",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600),
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 50, left: 110),
+                    child: Text(
+                      "Your current plan :",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 51, 49, 49),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 50, left: 225),
-                      child: Text(
-                        "Bulk up muscle",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 255, 94, 94),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w800),
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 50, left: 225),
+                    child: Text(
+                      "Bulk up muscle",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 255, 94, 94),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20, left: 360),
-                      child: Icon(
-                        Icons.notifications_active_outlined,
-                        color: Colors.black,
-                        size: 32,
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, left: 360),
+                    child: Icon(
+                      Icons.notifications_active_outlined,
+                      color: Colors.black,
+                      size: 32,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TodayActivity()),
+                            builder: (context) => const UserProfile()),
                       );
                     },
                     child: const Text(
@@ -602,25 +602,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+    if (currentTab == 2) {
+      currentContent = const UserProfile();
+    } else if (currentTab == 0) {
+      currentContent = const TodayActivity();
+    }
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: currentContent,
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        currentIndex: currentTab,
         backgroundColor: const Color.fromARGB(255, 60, 60, 60),
         selectedItemColor: const Color.fromARGB(255, 255, 94, 94),
         unselectedItemColor: Colors.white,
+        onTap: (value) {
+          setState(() {
+            currentTab = value;
+          });
+        },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.list,
-              size: 25,
-            ),
-            label: 'Your Workout',
+            icon: Icon(Icons.list, size: 30),
+            label: '123',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled, size: 25),
-            label: 'Home',
+            icon: Icon(Icons.home_filled, size: 35),
+            label: '123',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 25),
-            label: 'Profile',
+            icon: Icon(Icons.person, size: 30),
+            label: '123',
           ),
         ],
       ),
