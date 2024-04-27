@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/Profiles/re-new.dart';
+import 'package:focus_fitnesss/Screens/about_us.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -295,14 +297,14 @@ class _UserProfileState extends State<UserProfile> {
               height: 40,
               width: 350,
               child: ElevatedButton(
-                 onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ReNewMembership(),
-                            ),
-                          );
-                        },,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReNewMembership(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   padding: const EdgeInsets.all(8),
@@ -335,13 +337,13 @@ class _UserProfileState extends State<UserProfile> {
               width: 350,
               child: ElevatedButton(
                 onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AboutUs(),
-                            ),
-                          );
-                        },,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutUs(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   padding: const EdgeInsets.all(8),
