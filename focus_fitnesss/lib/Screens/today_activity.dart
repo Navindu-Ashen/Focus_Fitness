@@ -640,7 +640,7 @@ class _TodayActivityState extends State<TodayActivity> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HelpPage()),
+                              builder: (context) => const HelpPage()),
                         );
                       },
                       child: const Text(

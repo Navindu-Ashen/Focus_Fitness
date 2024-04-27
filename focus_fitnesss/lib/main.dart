@@ -1,12 +1,12 @@
-// ignore_for_file: unused_import
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/admHome.dart';
-import 'package:focus_fitnesss/Screens/Profiles/user_profile';
 import 'package:focus_fitnesss/Screens/home.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
+// ignore: unused_import
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'firebase_options.dart';
 
@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
               // print("Sign out .......................................");
               return const AdminHomeScreen();
             }
-            return const UserProfile();
+            return const HomeScreen();
           }
-          return const UserProfile();
+          return const LoginPage();
         },
       ),
     );
