@@ -365,6 +365,38 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 18,
+              ),
+              Center(
+                // ignore: sized_box_for_whitespace
+                child: Container(
+                  height: 40,
+                  width: 350,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      padding: const EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 255, 94, 94),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Log out",
+                        style: TextStyle(
+                          letterSpacing: 1.7,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 25, left: 155),
                 child: Image.asset(

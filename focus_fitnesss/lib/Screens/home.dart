@@ -56,26 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 50, left: 110),
-                    child: Text(
-                      "Your current plan :",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 51, 49, 49),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 50, left: 225),
-                    child: Text(
-                      "Bulk up muscle",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 94, 94),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                  Padding(
                     padding: EdgeInsets.only(top: 20, left: 360),
                     child: Icon(
                       Icons.notifications_active_outlined,
@@ -90,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(
                   left: 15, top: 30, right: 15, bottom: 20),
               child: Container(
-                height: 130,
+                height: 150,
                 width: 400,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 55, 53, 53),
+                  color: const Color.fromARGB(255, 34, 34, 34),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Stack(
@@ -106,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Image.asset(
                         'assets/g2.png',
                         width: 400,
-                        height: 130,
+                        height: 150,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -121,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
-                              fontSize: 17,
+                              fontSize: 28,
                             ),
                           ),
                           Text(
                             "Leg day",
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w800,
                               color: Color.fromARGB(255, 255, 94, 94),
-                              fontSize: 28,
+                              fontSize: 38,
                               letterSpacing: 1.5,
                             ),
                           ),
@@ -194,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 80,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(25),
+                        Radius.circular(10),
                       ),
                       color: Color.fromARGB(255, 255, 94, 94),
                     ),
@@ -239,111 +219,38 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 280,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
-                          Radius.circular(20),
+                          Radius.circular(10),
                         ),
                         color: Color.fromARGB(255, 60, 60, 60),
                       ),
                       child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 20,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              "Squads",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
-                          Text(
-                            "Squads",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 140,
-                          ),
-                          Text(
-                            "15x3",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              "15x3",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 30,
-                      width: 280,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        color: Color.fromARGB(255, 60, 60, 60),
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Hack squads",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 100,
-                          ),
-                          Text(
-                            "15x3",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 30,
-                      width: 280,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        color: Color.fromARGB(255, 60, 60, 60),
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Leg press",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 125,
-                          ),
-                          Text(
-                            "15x3",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
+                      height: 50,
                     ),
                     Stack(
                       children: [
@@ -352,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 280,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                              Radius.circular(10),
                             ),
                             image: DecorationImage(
                               image: AssetImage('assets/g4.png'),
