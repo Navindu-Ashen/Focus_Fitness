@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/re-new.dart';
 import 'package:focus_fitnesss/Screens/about_us.dart';
@@ -374,7 +375,9 @@ class _UserProfileState extends State<UserProfile> {
                   height: 40,
                   width: 350,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       padding: const EdgeInsets.all(8),
