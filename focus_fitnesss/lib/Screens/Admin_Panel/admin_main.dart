@@ -44,7 +44,6 @@ class _AdminMainState extends State<AdminMain> {
     getUserData();
   }
 
-
   @override
   Widget build(BuildContext context) {
     currentScreen = SafeArea(
@@ -105,7 +104,9 @@ class _AdminMainState extends State<AdminMain> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ManageUsers(),
+                              builder: (context) => ManageUsers(
+                                adminName: adminName,
+                              ),
                             ),
                           );
                         },
@@ -142,7 +143,9 @@ class _AdminMainState extends State<AdminMain> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ManageSchedule(),
+                              builder: (context) => ManageSchedule(
+                                adminName: adminName,
+                              ),
                             ),
                           );
                         },

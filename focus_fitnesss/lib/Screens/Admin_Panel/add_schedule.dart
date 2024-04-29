@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AddSchedule extends StatefulWidget {
@@ -8,404 +9,578 @@ class AddSchedule extends StatefulWidget {
 }
 
 class _AddScheduleState extends State<AddSchedule> {
+  final _form = GlobalKey<FormState>();
+  var scheduleName = "";
+  var calories = "";
+  var ex1Name = "";
+  var ex2Name = "";
+  var ex3Name = "";
+  var ex4Name = "";
+  var ex5Name = "";
+  var ex1Sets = "";
+  var ex2Sets = "";
+  var ex3Sets = "";
+  var ex4Sets = "";
+  var ex5Sets = "";
+
+  bool _isUpdting = false;
+
+  void addSchedule() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    FocusScope.of(context).unfocus();
+
+    setState(() {
+      _isUpdting = true;
+    });
+
+    print(scheduleName);
+
+    print([ex1Name, ex2Name, ex3Name, ex4Name, ex5Name]);
+    print([ex1Sets, ex2Sets, ex3Sets, ex4Sets, ex5Sets]);
+
+    await FirebaseFirestore.instance
+        .collection("schedules")
+        .doc(scheduleName)
+        .set({
+      "ex_name_1": [ex1Name, ex2Name, ex3Name, ex4Name, ex5Name],
+      "ex_sets_1": [ex1Sets, ex2Sets, ex3Sets, ex4Sets, ex5Sets],
+      "name": scheduleName,
+      "calories": calories,
+    });
+
+    setState(() {
+      _isUpdting = false;
+    });
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(
-                Icons.arrow_back_ios,
-              ),
-              iconSize: 25,
-              color: Colors.white,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                color: const Color.fromARGB(255, 164, 162, 162),
-                width: double.infinity,
-                height: 75,
-                child: const Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: AssetImage("assets/p1.png"),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  color: const Color.fromARGB(255, 164, 162, 162),
+                  width: double.infinity,
+                  height: 75,
+                  child: const Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
+                        child: CircleAvatar(
+                          radius: 35,
+                          backgroundImage: AssetImage("assets/p1.png"),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 15, left: 110),
-                      child: Text(
-                        "Welcome to ADMIN PANEL",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
+                      Padding(
+                        padding: EdgeInsets.only(top: 15, left: 110),
+                        child: Text(
+                          "Welcome to ADMIN PANEL",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 51, 49, 49),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 30, left: 110),
-                      child: Text(
-                        "Admin name",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, left: 110),
+                        child: Text(
+                          "Admin name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            const Column(
-              children: [
-                Center(
-                  child: Text(
-                    "Add Schedules",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1.0,
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Column(
-              children: [
-                Center(
-                  child: Container(
-                    height: 50,
-                    width: 370,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Schedule name',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Add Schedules",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.0,
                       ),
-                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Form(
+                key: _form,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.name,
+                          textCapitalization: TextCapitalization.words,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            labelText: "Schedule Name",
+                            labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 172, 172, 172),
+                            ),
+                            fillColor: const Color(0xFF2A2A2A),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            filled: true,
+                          ),
+                          onSaved: (value) {
+                            scheduleName = value!;
+                          },
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return "Enter schedule name";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 40,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                hintText: 'Exercise name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Excersice Name 1",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
                               ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'No of reps',
-                                hintStyle:
-                                    TextStyle(color: Colors.grey, fontSize: 13),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Exercise name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'No of reps',
-                                hintStyle:
-                                    TextStyle(color: Colors.grey, fontSize: 13),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Exercise name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'No of reps',
-                                hintStyle:
-                                    TextStyle(color: Colors.grey, fontSize: 13),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Exercise name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'No of reps',
-                                hintStyle:
-                                    TextStyle(color: Colors.grey, fontSize: 13),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Exercise name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 60, 60, 60),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'No of reps',
-                                hintStyle:
-                                    TextStyle(color: Colors.grey, fontSize: 13),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Center(
-                      // ignore: sized_box_for_whitespace
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 370,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AddSchedule()),
-                                );
+                              onSaved: (value) {
+                                ex1Name = value!;
                               },
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                padding: const EdgeInsets.all(8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 255, 94, 94),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Add schedule",
-                                  style: TextStyle(
-                                    letterSpacing: 1.7,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
                             ),
                           ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Image.asset(
-                            'assets/logo.png',
-                            height: 150,
-                            width: 150,
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex1Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Excersice Name 2",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex2Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter exersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex2Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Excersice Name 3",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex3Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter exersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex3Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Excersice Name 4",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex4Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter exersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex4Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Excersice Name 5",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex5Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex5Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.name,
+                          textCapitalization: TextCapitalization.words,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            labelText: "Calories",
+                            labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 172, 172, 172),
+                            ),
+                            fillColor: const Color(0xFF2A2A2A),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            filled: true,
+                          ),
+                          onSaved: (value) {
+                            calories = value!;
+                          },
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return "Enter calories";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              if (!_isUpdting)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ElevatedButton(
+                    onPressed: addSchedule,
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      padding: const EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 255, 94, 94),
                     ),
-                  ],
-                )
-              ],
-            ),
-          ],
+                    child: const Center(
+                      child: Text(
+                        "Add schedule",
+                        style: TextStyle(
+                          letterSpacing: 1.7,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (_isUpdting)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ElevatedButton(
+                    onPressed: addSchedule,
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      padding: const EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 255, 94, 94),
+                    ),
+                    child: const Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.white,
+                    )),
+                  ),
+                ),
+              const SizedBox(
+                height: 32,
+              )
+            ],
+          ),
         ),
       ),
     );
