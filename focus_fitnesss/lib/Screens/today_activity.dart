@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class TodayActivity extends StatefulWidget {
-  const TodayActivity({super.key});
+  const TodayActivity({
+    super.key,
+    required this.exersiceNames,
+    required this.exersiceCounts,
+    required this.calories,
+    required this.instructor,
+    required this.workoutName,
+  });
+
+  final List<dynamic> exersiceNames;
+  final List<dynamic> exersiceCounts;
+  final String calories;
+  final String instructor;
+  final String workoutName;
 
   @override
   State<TodayActivity> createState() => _TodayActivityState();
@@ -11,6 +24,7 @@ class TodayActivity extends StatefulWidget {
 class _TodayActivityState extends State<TodayActivity> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -31,13 +45,15 @@ class _TodayActivityState extends State<TodayActivity> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    child: const Stack(
+                    child: Stack(
                       children: [
-                        Positioned(
-                          top: 30,
-                          left: 125,
+                        const Positioned(
+                          top: 20,
+                          left: 10,
+                          right: 10,
                           child: Text(
                             'Action is the key to',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -45,27 +61,45 @@ class _TodayActivityState extends State<TodayActivity> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 50,
-                          left: 115,
+                        const Positioned(
+                          top: 45,
+                          left: 10,
+                          right: 10,
                           child: Text(
                             'ALL SUCCESS',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 255, 94, 94),
+                                color: Color.fromARGB(255, 255, 69, 70),
                                 letterSpacing: 1.2),
                           ),
                         ),
-                        Positioned(
-                          top: 95,
-                          left: 100,
+                        const Positioned(
+                          top: 90,
+                          left: 10,
+                          right: 10,
                           child: Text(
                             'Your Workout',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 40,
                                 fontWeight: FontWeight.w900,
                                 color: Color.fromARGB(255, 60, 60, 60),
+                                letterSpacing: 1.5),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 10,
+                          right: 10,
+                          child: Text(
+                            widget.workoutName,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w900,
+                                color: Color.fromARGB(255, 255, 255, 255),
                                 letterSpacing: 1.5),
                           ),
                         ),
@@ -85,19 +119,19 @@ class _TodayActivityState extends State<TodayActivity> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(20),
                       ),
-                      color: Color.fromARGB(255, 255, 94, 94),
+                      color: Color.fromARGB(255, 255, 119, 119),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.fitness_center,
                           color: Colors.white,
                           size: 50,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Column(
@@ -105,13 +139,13 @@ class _TodayActivityState extends State<TodayActivity> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "1,300",
-                              style: TextStyle(
+                              widget.calories,
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 27,
                                   fontWeight: FontWeight.w800),
                             ),
-                            Text(
+                            const Text(
                               "Calories",
                               style: TextStyle(
                                   color: Colors.white,
@@ -120,31 +154,31 @@ class _TodayActivityState extends State<TodayActivity> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 60,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.person_4_rounded,
                           color: Colors.white,
                           size: 50,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Your Instructor",
+                            const Text(
+                              "Your instructor",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "Mr.Kevin",
-                              style: TextStyle(
+                              widget.instructor,
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 27,
                                   fontWeight: FontWeight.w800),
@@ -156,470 +190,65 @@ class _TodayActivityState extends State<TodayActivity> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: screenHeight / 3.5,
+                child: ListView.builder(
+                  reverse: false,
+                  itemCount: widget.exersiceNames.length,
+                  itemBuilder: (ctx, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 300,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              color: Color.fromARGB(255, 60, 60, 60),
                             ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    widget.exersiceNames[index],
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.exersiceCounts[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
                             ),
-                            color: Color.fromARGB(255, 60, 60, 60),
                           ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 30,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: const Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Squads",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              ),
-                              Text(
-                                "15x3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 430,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 255, 94, 94),
+                          Container(
+                            height: 52,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 255, 119, 119)),
+                          )
+                        ],
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
               Padding(

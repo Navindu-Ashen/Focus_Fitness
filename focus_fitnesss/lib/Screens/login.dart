@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
       return;
-    } 
+    }
     // else if (userEmail == "admin@gmail.com") {
     //   Navigator.of(context).pushReplacement(
     //     MaterialPageRoute(
@@ -144,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 const Text(
                                   "Welcome to Your Ultimate Training Companion",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

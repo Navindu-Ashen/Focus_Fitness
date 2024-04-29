@@ -75,7 +75,8 @@ class _SignupPageState extends State<SignupPage> {
         "contact-number": enteredContactNumber,
         "image-url": imageUrl,
         "user-uid": FirebaseAuth.instance.currentUser!.uid,
-        "schedule" : "",
+        "schedule": "",
+        "instructor":"",
       });
 
       _form.currentState!.reset();
@@ -173,6 +174,7 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               const Text(
                                 "Welcome to Your Ultimate Training Companion",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/user_detail.dart';
 
-
 class ManageUsers extends StatefulWidget {
   const ManageUsers({super.key});
 
@@ -82,154 +81,51 @@ class _ManageUsersState extends State<ManageUsers> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 25, right: 15, left: 15),
+                padding: const EdgeInsets.only(top: 25, right: 16, left: 16),
                 child: GestureDetector(
-                  onTap: (){ 
+                  onTap: () {
                     Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UserDetailPage()),
-                );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserDetailPage()),
+                    );
                   },
                   child: Container(
                     height: 40,
-                    width: 380,
+                    width: double.infinity,
                     decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
+                      color: Color.fromARGB(255, 42, 42, 42),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
-                    child: const Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(9.0),
-                              child: Text(
-                                "3",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 250,
-                            ),
-                            Text(
-                              "User 3",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "3",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "User 3",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(
-                height: 8,
+                height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15),
-                child: GestureDetector(
-                   onTap: (){ 
-                    Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UserDetailPage()),
-                );
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 380,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(9.0),
-                              child: Text(
-                                "2",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 250,
-                            ),
-                            Text(
-                              "User 2",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15),
-                child: GestureDetector(
-                   onTap: (){ 
-                    Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UserDetailPage()),
-                );
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 380,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(9.0),
-                              child: Text(
-                                "1",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 250,
-                            ),
-                            Text(
-                              "User 1",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 250, left: 75, right: 75),
+              Center(
                 child: Image.asset(
                   'assets/logo.png',
                   height: 150,

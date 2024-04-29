@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
@@ -15,6 +17,42 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 1;
   Widget? currentContent;
 
+  var userName = "Loading...";
+  var schedule = "Loading...";
+  var imgUrl = "Loading...";
+  var instructor = "Loading...";
+  var email = "Loading...";
+  var contactNumber = "Loading...";
+  bool _isGetUserData = false;
+  List<dynamic> exName1 = [];
+  List<dynamic> exCount1 = [];
+  String calories = "";
+
+  void getUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get();
+    if (!_isGetUserData) {
+      setState(() {
+        userName = userData["name"];
+        schedule = userData["schedule"];
+        imgUrl = userData["image-url"];
+        instructor = userData["instructor"];
+        email = userData["email"];
+        contactNumber = userData["contact-number"];
+      });
+      _isGetUserData = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     currentContent = SafeArea(
@@ -26,16 +64,26 @@ class _HomeScreenState extends State<HomeScreen> {
               color: const Color.fromARGB(255, 164, 162, 162),
               width: double.infinity,
               height: 75,
-              child: const Stack(
+              child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                    child: CircleAvatar(
-                      radius: 35,
-                      backgroundImage: AssetImage("assets/p1.png"),
+                  if (imgUrl != "Loading...")
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 5, left: 30, bottom: 5),
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: NetworkImage(imgUrl),
+                      ),
                     ),
-                  ),
-                  Padding(
+                  if (imgUrl == "Loading...")
+                    const Padding(
+                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: AssetImage("assets/p1.png"),
+                      ),
+                    ),
+                  const Padding(
                     padding: EdgeInsets.only(top: 10, left: 110),
                     child: Text(
                       "Welcome Back!",
@@ -46,16 +94,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 25, left: 110),
+                    padding: const EdgeInsets.only(top: 25, left: 110),
                     child: Text(
-                      "Navindu Dissanayake",
-                      style: TextStyle(
+                      userName,
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w800),
                     ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 50, left: 112),
+                    child: Text(
+                      "Your current plan :",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 51, 49, 49),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   Padding(
+                    padding: const EdgeInsets.only(top: 50, left: 230),
+                    child: Text(
+                      schedule,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 204, 74, 74),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                  const Padding(
                     padding: EdgeInsets.only(top: 20, left: 360),
                     child: Icon(
                       Icons.notifications_active_outlined,
@@ -147,7 +215,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UserProfile()),
+                          builder: (context) => TodayActivity(
+                            exersiceNames: exName1,
+                            exersiceCounts: exCount1,
+                            calories: calories,
+                            instructor: instructor,
+                            workoutName: schedule,
+                          ),
+                        ),
                       );
                     },
                     child: const Text(
@@ -165,12 +240,85 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
-            Row(
+            Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 10),
-                  child: Container(
-                    height: 200,
+                StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('schedules')
+                      .doc(schedule)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    final data = snapshot.data!.data() as Map<String, dynamic>;
+                    exName1 = data['ex_name_1'] as List<dynamic>;
+                    exCount1 = data['ex_sets_1'] as List<dynamic>;
+                    calories = data['calories'] as String;
+
+                    return SizedBox(
+                      height: 110,
+                      child: ListView.builder(
+                        reverse: false,
+                        itemCount: 3,
+                        itemBuilder: (ctx, index) {
+                          return Container(
+                            height: 30,
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(
+                                left: 16, right: 16, bottom: 5),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              color: Color.fromARGB(255, 60, 60, 60),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    exName1[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    exCount1[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 100,
                     width: 80,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -179,123 +327,77 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Color.fromARGB(255, 255, 94, 94),
                     ),
                     child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 20,
-                        ),
                         Icon(
-                          Icons.fitness_center,
+                          Icons.fitness_center_rounded,
                           color: Colors.white,
-                          size: 60,
-                        ),
-                        SizedBox(
-                          height: 10,
+                          size: 40,
                         ),
                         Text(
                           "1,300",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w700),
                         ),
                         Text(
                           "Calories",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 25,
-                ),
-                Column(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 280,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Color.fromARGB(255, 60, 60, 60),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    children: [
+                      Stack(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "Squads",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
+                          Container(
+                            height: 100,
+                            width: 280,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              image: DecorationImage(
+                                image: AssetImage('assets/g4.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                          const Positioned(
+                            top: 20,
+                            left: 70,
                             child: Text(
-                              "15x3",
+                              'Action is the key to',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const Positioned(
+                            top: 40,
+                            left: 60,
+                            child: Text(
+                              'ALL SUCCESS',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w900,
+                                color: Color.fromARGB(255, 255, 94, 94),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 280,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage('assets/g4.png'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const Positioned(
-                          top: 20,
-                          left: 70,
-                          child: Text(
-                            'Action is the key to',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        const Positioned(
-                          top: 40,
-                          left: 60,
-                          child: Text(
-                            'ALL SUCCESS',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w900,
-                              color: Color.fromARGB(255, 255, 94, 94),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15),
@@ -513,7 +615,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (currentTab == 2) {
       currentContent = const UserProfile();
     } else if (currentTab == 0) {
-      currentContent = const TodayActivity();
+      currentContent = TodayActivity(
+        exersiceNames: exName1,
+        exersiceCounts: exCount1,
+        calories: calories,
+        instructor: instructor,
+        workoutName: schedule,
+      );
     }
 
     return Scaffold(
