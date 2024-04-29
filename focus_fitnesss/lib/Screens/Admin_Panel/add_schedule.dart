@@ -493,6 +493,9 @@ class _AddScheduleState extends State<AddSchedule> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       SizedBox(
                         child: TextFormField(
                           style: const TextStyle(color: Colors.white),

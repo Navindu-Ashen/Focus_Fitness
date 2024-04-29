@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AdminProfile extends StatefulWidget {
@@ -8,6 +10,33 @@ class AdminProfile extends StatefulWidget {
 }
 
 class _AdminProfileState extends State<AdminProfile> {
+  var userName = "Loading...";
+  var email = "Loading...";
+  var contactNumber = "Loading...";
+  bool _isGetUserData = false;
+
+  void getUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection("admin")
+        .doc("admin1")
+        .get();
+    if (!_isGetUserData) {
+      setState(() {
+        userName = userData["name"];
+        email = userData["email"];
+        contactNumber = userData["contact-number"];
+      });
+      _isGetUserData = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +52,10 @@ class _AdminProfileState extends State<AdminProfile> {
                   color: const Color.fromARGB(255, 164, 162, 162),
                   width: double.infinity,
                   height: 75,
-                  child: const Stack(
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 6, left: 155),
+                      Center(
                         child: Text(
                           "ADMIN PANEL",
                           style: TextStyle(
@@ -82,9 +111,9 @@ class _AdminProfileState extends State<AdminProfile> {
                       color: Color.fromARGB(255, 60, 60, 60),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: const Stack(
+                    child: Stack(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 10, left: 10),
                           child: Text(
                             "User Name :",
@@ -95,8 +124,8 @@ class _AdminProfileState extends State<AdminProfile> {
                           bottom: 8,
                           right: 15,
                           child: Text(
-                            "Navindu Dissanayake",
-                            style: TextStyle(
+                            userName,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
@@ -116,9 +145,9 @@ class _AdminProfileState extends State<AdminProfile> {
                       color: Color.fromARGB(255, 60, 60, 60),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: const Stack(
+                    child: Stack(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 10, left: 10),
                           child: Text(
                             "User Email :",
@@ -129,8 +158,8 @@ class _AdminProfileState extends State<AdminProfile> {
                           bottom: 8,
                           right: 15,
                           child: Text(
-                            "test123@gmail.com",
-                            style: TextStyle(
+                            email,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
@@ -150,9 +179,9 @@ class _AdminProfileState extends State<AdminProfile> {
                       color: Color.fromARGB(255, 60, 60, 60),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: const Stack(
+                    child: Stack(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 10, left: 10),
                           child: Text(
                             "Contact number :",
@@ -163,8 +192,8 @@ class _AdminProfileState extends State<AdminProfile> {
                           bottom: 8,
                           right: 15,
                           child: Text(
-                            "0123456789",
-                            style: TextStyle(
+                            contactNumber,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
