@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Models/recipes.dart';
 
-
 class RecipeDetail2 extends StatefulWidget {
   const RecipeDetail2({super.key, required this.rec});
   final Recipes rec;
@@ -65,92 +64,95 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)),
                     ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 20, left: 30, right: 30),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Diet Plan",
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            widget.rec.title,
-                            style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900,
-                              color: Color.fromARGB(255, 255, 94, 94),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Diet Plan",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            widget.rec.description,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text(
-                            "INGREDIENTS :",
-                            style:  TextStyle(
-                                fontSize: 17,
-                                letterSpacing: 1,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10,),
-                          Text(
-                            widget.rec.ing,
-                            style: const TextStyle(
-                                fontSize: 17.8,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "STEPS :",
-                            style:  TextStyle(
-                                fontSize: 17,
-                                letterSpacing: 1,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            widget.rec.steps,
-                            style: const TextStyle(
-                                fontSize: 17.8,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 30, left: 40, right: 40),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/logo.png',
-                                  height: 150,
-                                  width: 150,
-                                )
-                              ],
+                            Text(
+                              widget.rec.title,
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w900,
+                                color: Color.fromARGB(255, 255, 94, 94),
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              widget.rec.description,
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              "INGREDIENTS :",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  letterSpacing: 1,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              widget.rec.ing,
+                              style: const TextStyle(
+                                  fontSize: 17.8,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              "STEPS :",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  letterSpacing: 1,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              widget.rec.steps,
+                              style: const TextStyle(
+                                  fontSize: 17.8,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 30, left: 40, right: 40),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/logo.png',
+                                    height: 150,
+                                    width: 150,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

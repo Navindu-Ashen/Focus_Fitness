@@ -29,15 +29,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
           ),
           textAlign: TextAlign.center,
         ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            const HomeScreen();
-          },
-        ),
+        leading:  IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                  iconSize: 25,
+                  color: Colors.white,
+                ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
