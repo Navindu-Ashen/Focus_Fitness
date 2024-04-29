@@ -23,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   var instructor = "Loading...";
   var email = "Loading...";
   var contactNumber = "Loading...";
-  bool _isGetUserData = false;
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
   String calories = "";
+  bool _isGetUserData = false;
 
   void getUserData() async {
     final user = FirebaseAuth.instance.currentUser;
@@ -44,17 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
         contactNumber = userData["contact-number"];
       });
       _isGetUserData = true;
+      return;
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    getUserData();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    getUserData();
     currentContent = SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -197,8 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 5),
+              padding: const EdgeInsets.only(left: 16, top: 5, right: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "Today's activity",
@@ -206,9 +203,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    width: 175,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -240,75 +234,108 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
-            Column(
-              children: [
-                StreamBuilder<DocumentSnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('schedules')
-                      .doc(schedule)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const CircularProgressIndicator();
-                    }
+            if (_isGetUserData)
+              Column(
+                children: [
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('schedules')
+                        .doc(schedule)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: Text(
+                            "No plans added",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        );
+                      }
 
-                    final data = snapshot.data!.data() as Map<String, dynamic>;
-                    exName1 = data['ex_name_1'] as List<dynamic>;
-                    exCount1 = data['ex_sets_1'] as List<dynamic>;
-                    calories = data['calories'] as String;
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text(
+                            "Somthing went wrong. Pleace contact developers.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        );
+                      }
 
-                    return SizedBox(
-                      height: 110,
-                      child: ListView.builder(
-                        reverse: false,
-                        itemCount: 3,
-                        itemBuilder: (ctx, index) {
-                          return Container(
-                            height: 30,
-                            width: double.infinity,
-                            margin: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 5),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                      final data =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      exName1 = data['ex_name_1'] as List<dynamic>;
+                      exCount1 = data['ex_sets_1'] as List<dynamic>;
+                      calories = data['calories'] as String;
+
+                      return SizedBox(
+                        height: 110,
+                        child: ListView.builder(
+                          reverse: false,
+                          itemCount: 3,
+                          itemBuilder: (ctx, index) {
+                            return Container(
+                              height: 30,
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(
+                                  left: 16, right: 16, bottom: 5),
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                color: Color.fromARGB(255, 60, 60, 60),
                               ),
-                              color: Color.fromARGB(255, 60, 60, 60),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    exName1[index],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      exName1[index],
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    exCount1[index],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      exCount1[index],
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            if (!_isGetUserData)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
                 ),
-              ],
-            ),
+              ),
             const SizedBox(
               height: 8,
             ),
@@ -400,8 +427,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 15),
+              padding: const EdgeInsets.only(
+                left: 16,
+                top: 15,
+                right: 16,
+              ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "More workouts",
@@ -409,9 +441,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    width: 175,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -613,7 +642,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
     if (currentTab == 2) {
-      currentContent = const UserProfile();
+      currentContent = UserProfile(
+        username: userName,
+        schedule: schedule,
+        email: email,
+        contactNumber: contactNumber,
+        instructor: instructor,
+        validUnti: "123456",
+      );
     } else if (currentTab == 0) {
       currentContent = TodayActivity(
         exersiceNames: exName1,

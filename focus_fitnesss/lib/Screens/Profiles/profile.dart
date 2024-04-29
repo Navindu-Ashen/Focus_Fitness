@@ -4,7 +4,22 @@ import 'package:focus_fitnesss/Screens/Profiles/re-new.dart';
 import 'package:focus_fitnesss/Screens/about_us.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+  const UserProfile({
+    super.key,
+    required this.username,
+    required this.contactNumber,
+    required this.email,
+    required this.instructor,
+    required this.schedule,
+    required this.validUnti,
+  });
+
+  final String username;
+  final String email;
+  final String contactNumber;
+  final String validUnti;
+  final String schedule;
+  final String instructor;
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -24,16 +39,16 @@ class _UserProfileState extends State<UserProfile> {
                 color: const Color.fromARGB(255, 164, 162, 162),
                 width: double.infinity,
                 height: 75,
-                child: const Stack(
+                child: Stack(
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
                       child: CircleAvatar(
                         radius: 35,
                         backgroundImage: AssetImage("assets/p1.png"),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 15, left: 110),
                       child: Text(
                         "Welcome Back!",
@@ -44,10 +59,10 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 30, left: 110),
+                      padding: const EdgeInsets.only(top: 30, left: 110),
                       child: Text(
-                        "Navindu Dissanayake",
-                        style: TextStyle(
+                        widget.username,
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w800),
@@ -82,9 +97,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "User Name :",
@@ -95,8 +110,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "Navindu Dissanayake",
-                          style: TextStyle(
+                          widget.username,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -116,9 +131,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "User Email :",
@@ -129,8 +144,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "test123@gmail.com",
-                          style: TextStyle(
+                          widget.email,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -150,9 +165,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "Contact number :",
@@ -163,8 +178,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "0123456789",
-                          style: TextStyle(
+                          widget.contactNumber,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -196,9 +211,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "Valid until :",
@@ -209,8 +224,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "08/09/2024",
-                          style: TextStyle(
+                          widget.validUnti,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -230,9 +245,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "Active workout plan :",
@@ -243,8 +258,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "Cardio crush",
-                          style: TextStyle(
+                          widget.schedule,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -264,9 +279,9 @@ class _UserProfileState extends State<UserProfile> {
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 10, left: 10),
                         child: Text(
                           "Your instructor :",
@@ -277,8 +292,8 @@ class _UserProfileState extends State<UserProfile> {
                         bottom: 8,
                         right: 15,
                         child: Text(
-                          "Mr.Kevin Thalawathugoda",
-                          style: TextStyle(
+                          widget.instructor,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
@@ -291,17 +306,20 @@ class _UserProfileState extends State<UserProfile> {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                // ignore: sized_box_for_whitespace
-                child: Container(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
                   height: 40,
-                  width: 350,
+                  width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ReNewMembership(),
+                          builder: (context) => ReNewMembership(
+                            schedule: widget.schedule,
+                            userName: widget.username,
+                          ),
                         ),
                       );
                     },
@@ -330,11 +348,11 @@ class _UserProfileState extends State<UserProfile> {
               const SizedBox(
                 height: 8,
               ),
-              Center(
-                // ignore: sized_box_for_whitespace
-                child: Container(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
                   height: 40,
-                  width: 350,
+                  width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -369,11 +387,13 @@ class _UserProfileState extends State<UserProfile> {
               const SizedBox(
                 height: 18,
               ),
-              Center(
-                // ignore: sized_box_for_whitespace
-                child: Container(
-                  height: 40,
-                  width: 350,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
@@ -392,8 +412,8 @@ class _UserProfileState extends State<UserProfile> {
                         style: TextStyle(
                           letterSpacing: 1.7,
                           color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
                     ),
