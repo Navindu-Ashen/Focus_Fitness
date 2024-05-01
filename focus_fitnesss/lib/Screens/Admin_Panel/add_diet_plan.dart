@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/widgets/image_picker2.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddDiet extends StatefulWidget {
   const AddDiet({super.key});
@@ -14,9 +18,89 @@ class _AddDietState extends State<AddDiet> {
   final _form = GlobalKey<FormState>();
   var planName = "";
   var planDescription = "";
-  File? _selectedImage;
+
+  File? _pickedImageFile;
+  bool _isAuthenticating = false;
+  String errorMsg = "";
+
+  void _pickImage() async {
+    FocusScope.of(context).unfocus();
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedImage == null) {
+      return;
+    }
+    setState(() {
+      _pickedImageFile = File(pickedImage.path);
+    });
+  }
+
+  void addPlan() async {
+    final _isValid = _form.currentState!.validate();
+    if (!_isValid) {
+      return;
+    }
+
+    if (_pickedImageFile == null) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Plaese set image for plan"),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isAuthenticating = true;
+    });
+
+    _form.currentState!.save();
+    FocusScope.of(context).unfocus();
+
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child("diet-plan-images")
+        .child("$planName.jpg");
+
+    await storageRef.putFile(_pickedImageFile!);
+    final imageUrl = await storageRef.getDownloadURL();
+
+    await FirebaseFirestore.instance
+        .collection("diet-plans")
+        .doc(planName)
+        .set({
+      "name": planName,
+      "description": planDescription,
+      "image-url": imageUrl,
+    });
+
+    _form.currentState!.reset();
+
+    setState(() {
+      _isAuthenticating = false;
+    });
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget imageContent = Center(
+      child: TextButton(
+        onPressed: _pickImage,
+        child: const Text(
+          "Add image",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+      ),
+    );
+    if (_pickedImageFile != null) {
+      imageContent = Image.file(_pickedImageFile!);
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -109,9 +193,7 @@ class _AddDietState extends State<AddDiet> {
                               planName = value!;
                             },
                             validator: (value) {
-                              if (value == null ||
-                                  value.trim().isEmpty ||
-                                  !value.trim().contains("@")) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "Enter plan name";
                               }
                               return null;
@@ -145,11 +227,15 @@ class _AddDietState extends State<AddDiet> {
                           const SizedBox(
                             height: 10,
                           ),
-                          ImagePicker2(
-                            onPickedImage: (pickedImage) {
-                              _selectedImage = pickedImage;
-                            },
-                          )
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFF2A2A2A),
+                            ),
+                            width: double.infinity,
+                            height: 200,
+                            child: imageContent,
+                          ),
                         ],
                       ),
                     ),
@@ -158,38 +244,64 @@ class _AddDietState extends State<AddDiet> {
                     height: 100,
                   ),
                   Center(
-                    // ignore: sized_box_for_whitespace
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
                         children: [
-                          Container(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                padding: const EdgeInsets.all(8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                          if (!_isAuthenticating)
+                            SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: addPlan,
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  padding: const EdgeInsets.all(8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 255, 94, 94),
                                 ),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 255, 94, 94),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Add plan",
-                                  style: TextStyle(
-                                    letterSpacing: 1.7,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18,
+                                child: const Center(
+                                  child: Text(
+                                    "Add plan",
+                                    style: TextStyle(
+                                      letterSpacing: 1.7,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          if (_isAuthenticating)
+                            SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: addPlan,
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  padding: const EdgeInsets.all(8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 255, 94, 94),
+                                ),
+                                child: const Center(
+                                  child: SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           const SizedBox(
                             height: 30,
                           ),

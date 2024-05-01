@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Data/recipes.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/add_diet_plan.dart';
@@ -191,18 +192,7 @@ class _ManageDietPlanState extends State<ManageDietPlan> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16),
                                       child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (ctx) => DietPlanDetail(
-                                                description:
-                                                    currentData["description"],
-                                                imgUrl: currentData["img-url"],
-                                                name: currentData["name"],
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                        onTap: () {},
                                         child: Text(
                                           currentData["name"],
                                           style: const TextStyle(
@@ -221,6 +211,12 @@ class _ManageDietPlanState extends State<ManageDietPlan> {
                                         await FirebaseFirestore.instance
                                             .collection("diet-plans")
                                             .doc(currentData["name"])
+                                            .delete();
+
+                                        await FirebaseStorage.instance
+                                            .ref()
+                                            .child("diet-plan-images")
+                                            .child("${currentData["name"]}.jpg")
                                             .delete();
                                       },
                                     ),

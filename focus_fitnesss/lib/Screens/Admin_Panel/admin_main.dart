@@ -412,7 +412,7 @@ class _AdminMainState extends State<AdminMain> {
                         ),
                         StreamBuilder(
                           stream: FirebaseFirestore.instance
-                              .collection("diet_plan")
+                              .collection("diet-plans")
                               .snapshots(),
                           builder: (cxt, chatSnapshot) {
                             if (chatSnapshot.connectionState ==

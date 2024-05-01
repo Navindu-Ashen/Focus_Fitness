@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Text(
-                            "Leg day",
+                            "Gym day",
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Color.fromARGB(255, 255, 94, 94),
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Text(
-                            "You got 12 exercises in workout",
+                            "You got 10 exercises in workout",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.white,

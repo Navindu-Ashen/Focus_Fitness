@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Models/recipes.dart';
 
 class RecipeDetail2 extends StatefulWidget {
-  const RecipeDetail2({super.key, required this.rec});
+  const RecipeDetail2({
+    super.key,
+    required this.rec,
+    required this.description,
+    required this.imageUrl,
+    required this.name,
+  });
   final Recipes rec;
+  final String imageUrl;
+  final String description;
+  final String name;
 
   @override
   State<RecipeDetail2> createState() => _RecipeDetail2State();
@@ -12,11 +21,12 @@ class RecipeDetail2 extends StatefulWidget {
 class _RecipeDetail2State extends State<RecipeDetail2> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            widget.rec.image,
+          Image.network(
+            widget.imageUrl,
             height: 1000,
             width: 750,
             alignment: Alignment.topCenter,
@@ -56,17 +66,18 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                 height: 280,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 172, 172, 172),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30)),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
+                child: Container(
+                  height: screenHeight / 3,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 172, 172, 172),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
                             const Text(
@@ -77,7 +88,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              widget.rec.title,
+                              widget.name,
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
@@ -88,7 +99,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                               height: 10,
                             ),
                             Text(
-                              widget.rec.description,
+                              widget.description,
                               style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -98,46 +109,6 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
-                              "INGREDIENTS :",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  letterSpacing: 1,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              widget.rec.ing,
-                              style: const TextStyle(
-                                  fontSize: 17.8,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "STEPS :",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  letterSpacing: 1,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              widget.rec.steps,
-                              style: const TextStyle(
-                                  fontSize: 17.8,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 30, left: 40, right: 40),

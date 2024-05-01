@@ -31,7 +31,7 @@ class _ImagePicker2State extends State<ImagePicker2> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Stack(
@@ -58,13 +58,13 @@ class _ImagePicker2State extends State<ImagePicker2> {
           onPressed: _pickImage,
           icon: const Icon(
             Icons.person,
-            color: Color.fromARGB(255, 43, 43, 43),
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
           label: const Text(
             "Add image",
             style: TextStyle(
               fontSize: 16,
-              color: Color.fromARGB(255, 43, 43, 43),
+              color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
         ),
