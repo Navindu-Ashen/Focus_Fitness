@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/re-new.dart';
 import 'package:focus_fitnesss/Screens/about_us.dart';
+import 'package:focus_fitnesss/Screens/login.dart';
+import 'package:focus_fitnesss/main.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({
@@ -397,6 +399,12 @@ class _UserProfileState extends State<UserProfile> {
                   child: ElevatedButton(
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const MyApp();
+                      }), (r) {
+                        return false;
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

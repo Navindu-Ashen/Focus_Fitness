@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Models/recipes.dart';
+import 'package:flutter/widgets.dart';
 
 class DietPlanDetail extends StatefulWidget {
-  const DietPlanDetail({super.key,required this.recipe});
-  final Recipes recipe;
+  const DietPlanDetail({
+    super.key,
+    required this.imgUrl,
+    required this.name,
+    required this.description,
+  });
+
+  final String imgUrl;
+  final String name;
+  final String description;
 
   @override
   State<DietPlanDetail> createState() => _DietPlanDetailState();
@@ -12,31 +20,11 @@ class DietPlanDetail extends StatefulWidget {
 class _DietPlanDetailState extends State<DietPlanDetail> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            widget.recipe.image,
-            height: 1000,
-            width: 750,
-            alignment: Alignment.topCenter,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                  ),
-                  iconSize: 30,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
+          Image.network(widget.imgUrl),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,12 +40,10 @@ class _DietPlanDetailState extends State<DietPlanDetail> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 280,
-              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
+                    width: double.infinity,
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 172, 172, 172),
                       borderRadius: BorderRadius.only(
@@ -65,9 +51,10 @@ class _DietPlanDetailState extends State<DietPlanDetail> {
                           topRight: Radius.circular(30)),
                     ),
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 20, left: 30, right: 30),
+                      padding: const EdgeInsets.only(
+                          top: 20, left: 30, right: 30),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
                             "Diet Plan",
@@ -77,7 +64,7 @@ class _DietPlanDetailState extends State<DietPlanDetail> {
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(
-                            widget.recipe.title,
+                            widget.name,
                             style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900,
@@ -88,7 +75,7 @@ class _DietPlanDetailState extends State<DietPlanDetail> {
                             height: 10,
                           ),
                           Text(
-                            widget.recipe.description,
+                            widget.description,
                             style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -98,44 +85,6 @@ class _DietPlanDetailState extends State<DietPlanDetail> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Text(
-                            "INGREDIENTS :",
-                            style:  TextStyle(
-                                fontSize: 17,
-                                letterSpacing: 1,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10,),
-                          Text(
-                            widget.recipe.ing,
-                            style: const TextStyle(
-                                fontSize: 17.8,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "STEPS :",
-                            style:  TextStyle(
-                                fontSize: 17,
-                                letterSpacing: 1,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            widget.recipe.steps,
-                            style: const TextStyle(
-                                fontSize: 17.8,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 30, left: 40, right: 40),

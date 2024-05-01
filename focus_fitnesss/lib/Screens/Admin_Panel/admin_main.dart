@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/admin_profile.dart';
+import 'package:focus_fitnesss/Screens/Admin_Panel/contact_us.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_diet_plan.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_schedules.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_users.dart';
@@ -182,7 +183,7 @@ class _AdminMainState extends State<AdminMain> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ManageDietPlan()),
+                                builder: (context) => ManageDietPlan(adminName: adminName,)),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -482,9 +483,11 @@ class _AdminMainState extends State<AdminMain> {
       ),
     );
 
-    if (currentTab == 0) {}
+    if (currentTab == 0) {
+      currentScreen = const ContactUs();
+    }
     if (currentTab == 2) {
-      currentScreen = AdminProfile();
+      currentScreen = const AdminProfile();
     }
     return Scaffold(
       backgroundColor: Colors.black,

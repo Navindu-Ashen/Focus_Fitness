@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/widgets/image_picker2.dart';
 
 class AddDiet extends StatefulWidget {
   const AddDiet({super.key});
@@ -11,6 +14,7 @@ class _AddDietState extends State<AddDiet> {
   final _form = GlobalKey<FormState>();
   var planName = "";
   var planDescription = "";
+  File? _selectedImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,29 +145,11 @@ class _AddDietState extends State<AddDiet> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Center(
-                            child: Container(
-                              height: 150,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 60, 60, 60),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                              ),
-                              child: Center(
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: const Text(
-                                    "Add image  +",
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          ImagePicker2(
+                            onPickedImage: (pickedImage) {
+                              _selectedImage = pickedImage;
+                            },
+                          )
                         ],
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class TodayActivity extends StatefulWidget {
@@ -117,22 +118,34 @@ class _TodayActivityState extends State<TodayActivity> {
                     width: 400,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(20),
+                        Radius.circular(10),
                       ),
                       color: Color.fromARGB(255, 255, 119, 119),
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Icon(
-                          Icons.fitness_center,
-                          color: Colors.white,
-                          size: 50,
-                        ),
-                        const SizedBox(
-                          width: 12,
+                        Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: const Color.fromARGB(255, 204, 95, 95),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black,
+                              ),
+                              BoxShadow(
+                                color: Colors.black,
+                                spreadRadius: -12.0,
+                                blurRadius: 12.0,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.fitness_center,
+                            color: Colors.white,
+                            size: 50,
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,15 +168,29 @@ class _TodayActivityState extends State<TodayActivity> {
                           ],
                         ),
                         const SizedBox(
-                          width: 60,
+                          width: 16,
                         ),
-                        const Icon(
-                          Icons.person_4_rounded,
-                          color: Colors.white,
-                          size: 50,
-                        ),
-                        const SizedBox(
-                          width: 12,
+                        Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 204, 95, 95),
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black,
+                              ),
+                              BoxShadow(
+                                color: Colors.black,
+                                spreadRadius: -12.0,
+                                blurRadius: 12.0,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.person_4_rounded,
+                            color: Colors.white,
+                            size: 50,
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,17 +199,28 @@ class _TodayActivityState extends State<TodayActivity> {
                             const Text(
                               "Your instructor",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             Text(
-                              widget.instructor,
+                              widget.instructor.length > 10
+                                  ? '${widget.instructor.substring(0, 10)}...'
+                                  : widget.instructor,
                               style: const TextStyle(
-                                  color: Colors.white,
                                   fontSize: 27,
-                                  fontWeight: FontWeight.w800),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
+                            // Text(
+                            //   widget.instructor,
+                            //   style: const TextStyle(
+                            //     color: Colors.white,
+                            //     fontSize: 27,
+                            //     fontWeight: FontWeight.w800,
+                            //   ),
+                            // ),
                           ],
                         )
                       ],

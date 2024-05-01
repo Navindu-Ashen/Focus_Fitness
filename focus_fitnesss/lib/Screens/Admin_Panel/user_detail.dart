@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat.yMd();
 
 final firestoreInstance = FirebaseFirestore.instance;
 
@@ -40,10 +46,19 @@ class _UserDetailPageState extends State<UserDetailPage> {
   String _selectedSchedule = "";
   String selectedInstructor = "";
   String currentInstructor = "";
+  String formattedDate = "";
+  String formattedDate2 = "";
+  bool _isAttendanceMarking = false;
+  bool attendaceMarcked = false;
+
+  List<dynamic> attendance = [];
+  bool _getAttendaceData = false;
+  String lastAttendance = "";
 
   @override
   void initState() {
     super.initState();
+    getUserAttendance();
     getDocumentNames();
   }
 
@@ -56,11 +71,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
     // Iterate through the documents and print their IDs (which are their names in this case)
     for (var document in querySnapshot.docs) {
-      print(document.id);
       currentSchedleList.add(document.id);
     }
     setState(() {});
-    print(currentSchedleList);
   }
 
   void submit() async {
@@ -70,8 +83,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
     }
     _form.currentState!.save();
     FocusScope.of(context).unfocus();
-
-    print(selectedSchedule);
 
     await FirebaseFirestore.instance
         .collection("users")
@@ -97,8 +108,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
     _form2.currentState!.save();
     FocusScope.of(context).unfocus();
 
-    print(selectedInstructor);
-
     await FirebaseFirestore.instance
         .collection("users")
         .doc(widget.userUid)
@@ -117,6 +126,45 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
   void deleteUser(String userUID) async {
     await FirebaseFirestore.instance.collection("users").doc(userUID).delete();
+  }
+
+  void markAttendance() {
+    final now = DateTime.now();
+    formattedDate = formatter.format(now);
+
+    setState(() {
+      _isAttendanceMarking = true;
+    });
+    FirebaseFirestore.instance.collection("users").doc(widget.userUid).update({
+      "attendance": FieldValue.arrayUnion([formattedDate]),
+    });
+    setState(() {
+      _isAttendanceMarking = false;
+      attendaceMarcked = true;
+    });
+  }
+
+  void getUserAttendance() async {
+    final now2 = DateTime.now();
+    formattedDate2 = formatter.format(now2);
+
+    final userData = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.userUid)
+        .get();
+    if (!_getAttendaceData) {
+      setState(() {
+        attendance = userData["attendance"];
+      });
+      _getAttendaceData = true;
+      lastAttendance = userData["attendance"][attendance.length - 1];
+      if (lastAttendance == formattedDate2) {
+        setState(() {
+          attendaceMarcked = true;
+        });
+      }
+      return;
+    }
   }
 
   @override
@@ -175,22 +223,107 @@ class _UserDetailPageState extends State<UserDetailPage> {
               const SizedBox(
                 height: 10,
               ),
-              Column(
-                children: const [
-                  Center(
-                    child: Text(
-                      "Manage Users",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500),
+              if (!_isAttendanceMarking &&
+                  !attendaceMarcked &&
+                  _getAttendaceData)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Center(
+                    child: SizedBox(
+                      height: 40,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: markAttendance,
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          padding: const EdgeInsets.all(8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 94, 94),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Mark attendance",
+                            style: TextStyle(
+                              letterSpacing: 1,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+                ),
+              if (_isAttendanceMarking)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Center(
+                    child: SizedBox(
+                      height: 40,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: markAttendance,
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          padding: const EdgeInsets.all(8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 94, 94),
+                        ),
+                        child: Center(
+                          child: SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (attendaceMarcked)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Center(
+                    child: SizedBox(
+                      height: 40,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: markAttendance,
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          padding: const EdgeInsets.all(8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 60, 60, 60),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Attendance marked!",
+                            style: TextStyle(
+                              letterSpacing: 1,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               const Column(
                 children: [
                   Padding(

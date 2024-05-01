@@ -157,6 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                                 TextFormField(
                                   style: const TextStyle(color: Colors.white),
                                   keyboardType: TextInputType.emailAddress,
+                                  textCapitalization: TextCapitalization.none,
                                   decoration: InputDecoration(
                                     prefixIcon:
                                         const Icon(Icons.email_outlined),

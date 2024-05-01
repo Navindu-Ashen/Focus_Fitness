@@ -1,13 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
+import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'package:focus_fitnesss/Screens/today_activity.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    required this.contactNumber,
+    required this.email,
+    required this.imgUrl,
+    required this.instructor,
+    required this.schedule,
+    required this.username,
+    required this.attendance,
+  });
+
+  final String username;
+  final String schedule;
+  final String imgUrl;
+  final String instructor;
+  final String email;
+  final String contactNumber;
+  final List<dynamic> attendance;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -17,40 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 1;
   Widget? currentContent;
 
-  var userName = "Loading...";
-  var schedule = "Loading...";
-  var imgUrl = "Loading...";
-  var instructor = "Loading...";
-  var email = "Loading...";
-  var contactNumber = "Loading...";
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
   String calories = "";
-  bool _isGetUserData = false;
-
-  void getUserData() async {
-    final user = FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get();
-    if (!_isGetUserData) {
-      setState(() {
-        userName = userData["name"];
-        schedule = userData["schedule"];
-        imgUrl = userData["image-url"];
-        instructor = userData["instructor"];
-        email = userData["email"];
-        contactNumber = userData["contact-number"];
-      });
-      _isGetUserData = true;
-      return;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    getUserData();
     currentContent = SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -62,16 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 75,
               child: Stack(
                 children: [
-                  if (imgUrl != "Loading...")
+                  if (widget.imgUrl != "Loading...")
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 5, left: 30, bottom: 5),
                       child: CircleAvatar(
                         radius: 35,
-                        backgroundImage: NetworkImage(imgUrl),
+                        backgroundImage: NetworkImage(widget.imgUrl),
                       ),
                     ),
-                  if (imgUrl == "Loading...")
+                  if (widget.imgUrl == "Loading...")
                     const Padding(
                       padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
                       child: CircleAvatar(
@@ -92,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 25, left: 110),
                     child: Text(
-                      userName,
+                      widget.username,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -112,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 50, left: 230),
                     child: Text(
-                      schedule,
+                      widget.schedule,
                       style: const TextStyle(
                           color: Color.fromARGB(255, 204, 74, 74),
                           fontSize: 15,
@@ -213,8 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             exersiceNames: exName1,
                             exersiceCounts: exCount1,
                             calories: calories,
-                            instructor: instructor,
-                            workoutName: schedule,
+                            instructor: widget.instructor,
+                            workoutName: widget.schedule,
                           ),
                         ),
                       );
@@ -234,108 +223,96 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
-            if (_isGetUserData)
-              Column(
-                children: [
-                  StreamBuilder<DocumentSnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('schedules')
-                        .doc(schedule)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: Text(
-                            "No plans added",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+            Column(
+              children: [
+                StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('schedules')
+                      .doc(widget.schedule)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: Text(
+                          "No plans added",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
                           ),
-                        );
-                      }
-
-                      if (snapshot.hasError) {
-                        return const Center(
-                          child: Text(
-                            "Somthing went wrong. Pleace contact developers.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        );
-                      }
-
-                      final data =
-                          snapshot.data!.data() as Map<String, dynamic>;
-                      exName1 = data['ex_name_1'] as List<dynamic>;
-                      exCount1 = data['ex_sets_1'] as List<dynamic>;
-                      calories = data['calories'] as String;
-
-                      return SizedBox(
-                        height: 110,
-                        child: ListView.builder(
-                          reverse: false,
-                          itemCount: 3,
-                          itemBuilder: (ctx, index) {
-                            return Container(
-                              height: 30,
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(
-                                  left: 16, right: 16, bottom: 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                color: Color.fromARGB(255, 60, 60, 60),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      exName1[index],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      exCount1[index],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
                         ),
                       );
-                    },
-                  ),
-                ],
-              ),
-            if (!_isGetUserData)
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
+                    }
+
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text(
+                          "Somthing went wrong. Pleace contact developers.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      );
+                    }
+
+                    final data = snapshot.data!.data() as Map<String, dynamic>;
+                    exName1 = data['ex_name_1'] as List<dynamic>;
+                    exCount1 = data['ex_sets_1'] as List<dynamic>;
+                    calories = data['calories'] as String;
+
+                    return SizedBox(
+                      height: 110,
+                      child: ListView.builder(
+                        reverse: false,
+                        itemCount: 3,
+                        itemBuilder: (ctx, index) {
+                          return Container(
+                            height: 30,
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(
+                                left: 16, right: 16, bottom: 5),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              color: Color.fromARGB(255, 60, 60, 60),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    exName1[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    exCount1[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
-              ),
+              ],
+            ),
             const SizedBox(
               height: 8,
             ),
@@ -643,21 +620,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     if (currentTab == 2) {
       currentContent = UserProfile(
-        username: userName,
-        schedule: schedule,
-        email: email,
-        contactNumber: contactNumber,
-        instructor: instructor,
+        username: widget.username,
+        schedule: widget.schedule,
+        email: widget.email,
+        contactNumber: widget.contactNumber,
+        instructor: widget.instructor,
         validUnti: "123456",
       );
     } else if (currentTab == 0) {
-      currentContent = TodayActivity(
-        exersiceNames: exName1,
-        exersiceCounts: exCount1,
-        calories: calories,
-        instructor: instructor,
-        workoutName: schedule,
-      );
+      currentContent = AttendanceScreen(attendance: widget.attendance);
     }
 
     return Scaffold(
