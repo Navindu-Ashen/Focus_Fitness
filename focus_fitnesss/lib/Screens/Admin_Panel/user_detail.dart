@@ -87,14 +87,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(widget.userUid)
-        .set({
-      "image-url": widget.imageUrl,
-      "user-uid": widget.userUid,
-      "name": widget.userName,
-      "email": widget.userEmail,
-      "contact-number": widget.contactNumber,
+        .update({
       "schedule": selectedSchedule,
-      "instructor": widget.instructor,
     });
 
     Navigator.of(context).pop();
@@ -111,13 +105,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(widget.userUid)
-        .set({
-      "image-url": widget.imageUrl,
-      "user-uid": widget.userUid,
-      "name": widget.userName,
-      "email": widget.userEmail,
-      "contact-number": widget.contactNumber,
-      "schedule": currentSchedule,
+        .update({
       "instructor": selectedInstructor,
     });
 
@@ -126,6 +114,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
   void deleteUser(String userUID) async {
     await FirebaseFirestore.instance.collection("users").doc(userUID).delete();
+    Navigator.of(context).pop();
   }
 
   void markAttendance() {
@@ -714,7 +703,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   height: 40,
                   width: 350,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      deleteUser(widget.userUid);
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       padding: const EdgeInsets.all(8),

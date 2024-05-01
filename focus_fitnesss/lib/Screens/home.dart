@@ -330,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       color: Color.fromARGB(255, 255, 94, 94),
                     ),
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 40,
                         ),
                         Text(
-                          "1,300",
+                          calories,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -626,6 +626,7 @@ class _HomeScreenState extends State<HomeScreen> {
         contactNumber: widget.contactNumber,
         instructor: widget.instructor,
         validUnti: "123456",
+        imageUrl: widget.imgUrl,
       );
     } else if (currentTab == 0) {
       currentContent = AttendanceScreen(attendance: widget.attendance);

@@ -83,6 +83,10 @@ class _ManageUsersState extends State<ManageUsers> {
                       StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection("users")
+                            .orderBy(
+                              "created-at",
+                              descending: false,
+                            )
                             .snapshots(),
                         builder: (cxt, chatSnapshot) {
                           if (chatSnapshot.connectionState ==
@@ -113,7 +117,9 @@ class _ManageUsersState extends State<ManageUsers> {
                               reverse: false,
                               itemCount: loadedData.length,
                               itemBuilder: (context, index) {
-                                final currentData = loadedData[index].data();
+                                final currentData =
+                                    loadedData[(loadedData.length - index) - 1]
+                                        .data();
 
                                 return GestureDetector(
                                   onTap: () {
@@ -150,7 +156,7 @@ class _ManageUsersState extends State<ManageUsers> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${index + 1}",
+                                            "${(loadedData.length - index)}",
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18,

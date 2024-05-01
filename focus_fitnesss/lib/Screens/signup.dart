@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/widgets/image_picker.dart';
+import 'package:intl/intl.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -29,6 +30,10 @@ class _SignupPageState extends State<SignupPage> {
   bool isObsecured2 = true;
 
   void _submit() async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd  kk:mm').format(now);
+    print(formattedDate);
+
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
@@ -76,7 +81,9 @@ class _SignupPageState extends State<SignupPage> {
         "image-url": imageUrl,
         "user-uid": FirebaseAuth.instance.currentUser!.uid,
         "schedule": "",
-        "instructor":"",
+        "instructor": "",
+        "attendance": [],
+        "created-at": formattedDate,
       });
 
       _form.currentState!.reset();
@@ -430,8 +437,12 @@ class _SignupPageState extends State<SignupPage> {
                                           255, 255, 94, 94),
                                     ),
                                     child: const Center(
-                                        child: CircularProgressIndicator(
-                                      color: Colors.white,
+                                        child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
                                     )),
                                   ),
                                 ),

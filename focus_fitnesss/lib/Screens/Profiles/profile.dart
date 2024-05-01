@@ -14,6 +14,7 @@ class UserProfile extends StatefulWidget {
     required this.instructor,
     required this.schedule,
     required this.validUnti,
+    required this.imageUrl,
   });
 
   final String username;
@@ -22,6 +23,7 @@ class UserProfile extends StatefulWidget {
   final String validUnti;
   final String schedule;
   final String instructor;
+  final String imageUrl;
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -43,11 +45,11 @@ class _UserProfileState extends State<UserProfile> {
                 height: 75,
                 child: Stack(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
                       child: CircleAvatar(
                         radius: 35,
-                        backgroundImage: AssetImage("assets/p1.png"),
+                        backgroundImage: NetworkImage(widget.imageUrl),
                       ),
                     ),
                     const Padding(

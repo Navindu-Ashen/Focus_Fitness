@@ -49,6 +49,7 @@ class _ContactUsState extends State<ContactUs> {
                           ),
                           const Text(
                             "CONTACT DEVELOPERS",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900,

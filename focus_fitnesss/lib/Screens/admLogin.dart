@@ -267,8 +267,12 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                             255, 255, 94, 94),
                                       ),
                                       child: const Center(
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
+                                        child: SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),

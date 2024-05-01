@@ -289,8 +289,12 @@ class _LoginPageState extends State<LoginPage> {
                                             255, 255, 94, 94),
                                       ),
                                       child: const Center(
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
+                                        child: SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
