@@ -324,6 +324,7 @@ class _UserProfileState extends State<UserProfile> {
                           builder: (context) => ReNewMembership(
                             schedule: widget.schedule,
                             userName: widget.username,
+                            userEmail: widget.email,
                           ),
                         ),
                       );

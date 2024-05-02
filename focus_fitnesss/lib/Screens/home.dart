@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
     required this.schedule,
     required this.username,
     required this.attendance,
+    required this.calories,
   });
 
   final String username;
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
   final String email;
   final String contactNumber;
   final List<dynamic> attendance;
+  final String calories;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -259,6 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     final data = snapshot.data!.data() as Map<String, dynamic>;
                     exName1 = data['ex_name_1'] as List<dynamic>;
                     exCount1 = data['ex_sets_1'] as List<dynamic>;
+
                     calories = data['calories'] as String;
 
                     return SizedBox(
