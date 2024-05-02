@@ -131,6 +131,17 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
                 const SizedBox(
                   height: 32,
                 ),
+                const Text(
+                  "Restart your application after a while",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 SizedBox(
                   height: 40,
                   width: 200,

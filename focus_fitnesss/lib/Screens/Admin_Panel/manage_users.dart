@@ -155,12 +155,41 @@ class _ManageUsersState extends State<ManageUsers> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "${(loadedData.length - index)}",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${(loadedData.length - index)}",
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              if (currentData["schedule"] == "")
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 94, 94),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 32),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 3),
+                                                  child: Text(
+                                                    "NEW",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
                                           ),
                                           Text(
                                             currentData["name"],
