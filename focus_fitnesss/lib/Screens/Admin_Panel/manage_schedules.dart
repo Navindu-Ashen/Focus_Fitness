@@ -144,7 +144,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                             chatSnapshot.data!.docs.isEmpty) {
                           return const Center(
                             child: Text(
-                              "No users added",
+                              "No schedules added",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

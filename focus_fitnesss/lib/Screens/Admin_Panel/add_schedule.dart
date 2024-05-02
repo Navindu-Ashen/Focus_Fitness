@@ -17,11 +17,21 @@ class _AddScheduleState extends State<AddSchedule> {
   var ex3Name = "";
   var ex4Name = "";
   var ex5Name = "";
+  var ex6Name = "";
+  var ex7Name = "";
+  var ex8Name = "";
+  var ex9Name = "";
+  var ex10Name = "";
   var ex1Sets = "";
   var ex2Sets = "";
   var ex3Sets = "";
   var ex4Sets = "";
   var ex5Sets = "";
+  var ex6Sets = "";
+  var ex7Sets = "";
+  var ex8Sets = "";
+  var ex9Sets = "";
+  var ex10Sets = "";
 
   bool _isUpdting = false;
 
@@ -39,18 +49,62 @@ class _AddScheduleState extends State<AddSchedule> {
 
     print(scheduleName);
 
-    print([ex1Name, ex2Name, ex3Name, ex4Name, ex5Name]);
-    print([ex1Sets, ex2Sets, ex3Sets, ex4Sets, ex5Sets]);
+    print([
+      ex1Name,
+      ex2Name,
+      ex3Name,
+      ex4Name,
+      ex5Name,
+      ex6Name,
+      ex7Name,
+      ex8Name,
+      ex9Name,
+      ex10Name
+    ]);
+    print([
+      ex1Sets,
+      ex2Sets,
+      ex3Sets,
+      ex4Sets,
+      ex5Sets,
+      ex6Sets,
+      ex7Sets,
+      ex8Sets,
+      ex9Sets,
+      ex10Sets
+    ]);
 
-    await FirebaseFirestore.instance
-        .collection("schedules")
-        .doc(scheduleName)
-        .set({
-      "ex_name_1": [ex1Name, ex2Name, ex3Name, ex4Name, ex5Name],
-      "ex_sets_1": [ex1Sets, ex2Sets, ex3Sets, ex4Sets, ex5Sets],
-      "name": scheduleName,
-      "calories": calories,
-    });
+    // await FirebaseFirestore.instance
+    //     .collection("schedules")
+    //     .doc(scheduleName)
+    //     .set({
+    //   "ex_name_1": [
+    //     ex1Name,
+    //     ex2Name,
+    //     ex3Name,
+    //     ex4Name,
+    //     ex5Name,
+    //     ex6Name,
+    //     ex7Name,
+    //     ex8Name,
+    //     ex9Name,
+    //     ex10Name
+    //   ],
+    //   "ex_sets_1": [
+    //     ex1Sets,
+    //     ex2Sets,
+    //     ex3Sets,
+    //     ex4Sets,
+    //     ex5Sets,
+    //     ex6Sets,
+    //     ex7Sets,
+    //     ex8Sets,
+    //     ex9Sets,
+    //     ex10Sets
+    //   ],
+    //   "name": scheduleName,
+    //   "calories": calories,
+    // });
 
     setState(() {
       _isUpdting = false;
@@ -141,7 +195,7 @@ class _AddScheduleState extends State<AddSchedule> {
                           keyboardType: TextInputType.name,
                           textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.email_outlined),
+                            prefixIcon: const Icon(Icons.book),
                             labelText: "Schedule Name",
                             labelStyle: const TextStyle(
                               color: Color.fromARGB(255, 172, 172, 172),
@@ -176,7 +230,8 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
                                 labelText: "Excersice Name 1",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -205,7 +260,7 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon: const Icon(Icons.numbers_rounded),
                                 labelText: "Sets",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -242,7 +297,8 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
                                 labelText: "Excersice Name 2",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -271,7 +327,7 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon: const Icon(Icons.numbers_rounded),
                                 labelText: "Sets",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -308,7 +364,8 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
                                 labelText: "Excersice Name 3",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -337,7 +394,7 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon: const Icon(Icons.numbers_rounded),
                                 labelText: "Sets",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -374,7 +431,8 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
                                 labelText: "Excersice Name 4",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -403,7 +461,7 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon: const Icon(Icons.numbers_rounded),
                                 labelText: "Sets",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -440,7 +498,8 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
                                 labelText: "Excersice Name 5",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -469,7 +528,7 @@ class _AddScheduleState extends State<AddSchedule> {
                               keyboardType: TextInputType.name,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email_outlined),
+                                prefixIcon: const Icon(Icons.numbers_rounded),
                                 labelText: "Sets",
                                 labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 172, 172, 172),
@@ -482,6 +541,341 @@ class _AddScheduleState extends State<AddSchedule> {
                               ),
                               onSaved: (value) {
                                 ex5Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
+                                labelText: "Excersice Name 6",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex6Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.numbers_rounded),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex6Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
+                                labelText: "Excersice Name 7",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex7Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.numbers_rounded),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex7Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
+                                labelText: "Excersice Name 8",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex8Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.numbers_rounded),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex8Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
+                                labelText: "Excersice Name 9",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex9Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.numbers_rounded),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex9Sets = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter sets";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.8,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.fitness_center_rounded),
+                                labelText: "Excersice Name 10",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex10Name = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Enter excersice name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 3,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.numbers_rounded),
+                                labelText: "Sets",
+                                labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                ),
+                                fillColor: const Color(0xFF2A2A2A),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                filled: true,
+                              ),
+                              onSaved: (value) {
+                                ex10Sets = value!;
                               },
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {

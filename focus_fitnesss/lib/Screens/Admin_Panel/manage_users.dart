@@ -99,7 +99,13 @@ class _ManageUsersState extends State<ManageUsers> {
                           if (!chatSnapshot.hasData ||
                               chatSnapshot.data!.docs.isEmpty) {
                             return const Center(
-                              child: Text("No users added"),
+                              child: Text(
+                                "No users added",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
                             );
                           }
 

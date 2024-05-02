@@ -232,7 +232,7 @@ class _TodayActivityState extends State<TodayActivity> {
                 height: 20,
               ),
               SizedBox(
-                height: screenHeight / 3.5,
+                height: screenHeight / 3,
                 child: ListView.builder(
                   reverse: false,
                   itemCount: widget.exersiceNames.length,

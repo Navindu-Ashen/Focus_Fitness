@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -114,6 +115,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
   void deleteUser(String userUID) async {
     await FirebaseFirestore.instance.collection("users").doc(userUID).delete();
+    await FirebaseStorage.instance
+        .ref()
+        .child("user-images")
+        .child("${widget.userUid}.jpg")
+        .delete();
     Navigator.of(context).pop();
   }
 
