@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Data/workout.dart';
 import 'package:focus_fitnesss/Models/workout.dart';
+// ignore: unused_import
 import 'package:focus_fitnesss/Screens/home.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_detail.dart';
-
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -29,14 +29,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
           ),
           textAlign: TextAlign.center,
         ),
-        leading:  IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                  ),
-                  iconSize: 25,
-                  color: Colors.white,
-                ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
+          iconSize: 25,
+          color: Colors.white,
+        ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -73,6 +73,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 ),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     width: 150,
@@ -89,12 +91,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 20),
+                  // const SizedBox(width: 8),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             workouts.title,
@@ -106,7 +110,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
-                          const SizedBox(height: 8),
                           Text(
                             workouts.text,
                             style: const TextStyle(
@@ -115,15 +118,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               color: Colors.white,
                             ),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
+                            maxLines: 2,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, left: 150),
-                            child: Image.asset(
-                              'assets/logo.png',
-                              height: 30,
-                              width: 30,
-                            ),
+                          //  const SizedBox(height: 5,),
+                          Image.asset(
+                            'assets/logo.png',
+                            height: 30,
+                            width: 30,
                           ),
                         ],
                       ),

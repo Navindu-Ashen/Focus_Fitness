@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
+// ignore: unused_import
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,6 +45,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
   String currentSchedule = "";
   String? selectedSchedule;
   List<String> currentSchedleList = [];
+  // ignore: unused_field
   String _selectedSchedule = "";
   String selectedInstructor = "";
   String currentInstructor = "";

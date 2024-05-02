@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 8,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -361,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                             height: 100,
-                            width: 280,
+                            width: 270,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
@@ -374,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const Positioned(
                             top: 20,
-                            left: 70,
+                            left: 60,
                             child: Text(
                               'Action is the key to',
                               style: TextStyle(
@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const Positioned(
                             top: 40,
-                            left: 60,
+                            left: 50,
                             child: Text(
                               'ALL SUCCESS',
                               style: TextStyle(
@@ -403,12 +403,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 15,
+            ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                top: 15,
-                right: 16,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -442,13 +441,14 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 10, right: 15),
               child: Container(
-                height: 130,
+                height: 140,
                 width: 400,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 255, 94, 94),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ClipRRect(
                       borderRadius: const BorderRadius.only(
@@ -458,47 +458,44 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Image.asset(
                         'assets/g5.png',
                         width: 130,
-                        height: 130,
+                        height: 140,
                         fit: BoxFit.cover,
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 2),
                         child: Column(
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(top: 5, left: 80),
+                              padding: EdgeInsets.only(top: 5),
                               child: Text(
                                 "Cardio Crush",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   color: Colors.white,
-                                  fontSize: 23,
+                                  fontSize: 22,
                                 ),
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 15),
-                              child: Text(
-                                "Mix fun dance moves with high energy cardio for an exhilarating.",
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
+                            const SizedBox(
+                              height: 5,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10, left: 170),
-                              child: Image.asset(
-                                'assets/logo.png',
-                                height: 40,
-                                width: 40,
+                            Text(
+                              "Mix fun dance moves with high energy cardio for an exhilarating.",
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontSize: 14,
                               ),
+                              textAlign: TextAlign.center,
+                            ),
+                            Image.asset(
+                              'assets/logo.png',
+                              height: 40,
+                              width: 40,
                             ),
                           ],
                         ),
@@ -508,9 +505,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 15,
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "Diet Plans",
@@ -518,9 +519,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    width: 220,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -545,7 +543,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 10, right: 15),
               child: Container(
-                height: 130,
+                height: 140,
                 width: 400,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 60, 60, 60),
@@ -561,47 +559,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Image.asset(
                         'assets/g6.png',
                         width: 130,
-                        height: 130,
+                        height: 140,
                         fit: BoxFit.cover,
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(top: 5, left: 50),
+                              padding: EdgeInsets.only(top: 5),
                               child: Text(
                                 "Fitness Fusion",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   color: Colors.white,
-                                  fontSize: 23,
+                                  fontSize: 22,
                                 ),
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                "Improvements in strength, endurance, and overall well-being.",
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                                textAlign: TextAlign.right,
+                            Text(
+                              "Improvements in strength, endurance, and overall well-being.",
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontSize: 14,
                               ),
+                              textAlign: TextAlign.center,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10, left: 170),
-                              child: Image.asset(
-                                'assets/logo.png',
-                                height: 40,
-                                width: 40,
-                              ),
+                            Image.asset(
+                              'assets/logo.png',
+                              height: 40,
+                              width: 40,
                             ),
                           ],
                         ),
