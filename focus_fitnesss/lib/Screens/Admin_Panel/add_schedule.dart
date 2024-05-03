@@ -74,37 +74,37 @@ class _AddScheduleState extends State<AddSchedule> {
       ex10Sets
     ]);
 
-    // await FirebaseFirestore.instance
-    //     .collection("schedules")
-    //     .doc(scheduleName)
-    //     .set({
-    //   "ex_name_1": [
-    //     ex1Name,
-    //     ex2Name,
-    //     ex3Name,
-    //     ex4Name,
-    //     ex5Name,
-    //     ex6Name,
-    //     ex7Name,
-    //     ex8Name,
-    //     ex9Name,
-    //     ex10Name
-    //   ],
-    //   "ex_sets_1": [
-    //     ex1Sets,
-    //     ex2Sets,
-    //     ex3Sets,
-    //     ex4Sets,
-    //     ex5Sets,
-    //     ex6Sets,
-    //     ex7Sets,
-    //     ex8Sets,
-    //     ex9Sets,
-    //     ex10Sets
-    //   ],
-    //   "name": scheduleName,
-    //   "calories": calories,
-    // });
+    await FirebaseFirestore.instance
+        .collection("schedules")
+        .doc(scheduleName)
+        .set({
+      "ex_name_1": [
+        ex1Name,
+        ex2Name,
+        ex3Name,
+        ex4Name,
+        ex5Name,
+        ex6Name,
+        ex7Name,
+        ex8Name,
+        ex9Name,
+        ex10Name
+      ],
+      "ex_sets_1": [
+        ex1Sets,
+        ex2Sets,
+        ex3Sets,
+        ex4Sets,
+        ex5Sets,
+        ex6Sets,
+        ex7Sets,
+        ex8Sets,
+        ex9Sets,
+        ex10Sets
+      ],
+      "name": scheduleName,
+      "calories": calories,
+    });
 
     setState(() {
       _isUpdting = false;
