@@ -1,12 +1,7 @@
-// ignore_for_file: unused_import
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Data/recipes.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/add_diet_plan.dart';
-// ignore: unused_import
-import 'package:focus_fitnesss/Screens/Admin_Panel/dietplan_detail.dart';
 
 class ManageDietPlan extends StatefulWidget {
   const ManageDietPlan({super.key, required this.adminName});

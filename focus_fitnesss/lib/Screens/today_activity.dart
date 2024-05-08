@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class TodayActivity extends StatefulWidget {
@@ -34,10 +33,10 @@ class _TodayActivityState extends State<TodayActivity> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 5, left: 8, right: 8),
-                child: SizedBox(
+                padding: const EdgeInsets.only(top: 5, left: 16, right: 16),
+                child: Container(
                   height: 180,
-                  width: 400,
+                  width: double.infinity,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -46,13 +45,13 @@ class _TodayActivityState extends State<TodayActivity> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    child: Stack(
-                      children: [
-                        const Positioned(
-                          top: 20,
-                          left: 10,
-                          right: 10,
-                          child: Text(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
                             'Action is the key to',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -61,12 +60,7 @@ class _TodayActivityState extends State<TodayActivity> {
                               color: Colors.black,
                             ),
                           ),
-                        ),
-                        const Positioned(
-                          top: 45,
-                          left: 10,
-                          right: 10,
-                          child: Text(
+                          Text(
                             'ALL SUCCESS',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -75,12 +69,7 @@ class _TodayActivityState extends State<TodayActivity> {
                                 color: Color.fromARGB(255, 255, 69, 70),
                                 letterSpacing: 1.2),
                           ),
-                        ),
-                        const Positioned(
-                          top: 90,
-                          left: 10,
-                          right: 10,
-                          child: Text(
+                          Text(
                             'Your Workout',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -89,12 +78,7 @@ class _TodayActivityState extends State<TodayActivity> {
                                 color: Color.fromARGB(255, 60, 60, 60),
                                 letterSpacing: 1.5),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 10,
-                          right: 10,
-                          child: Text(
+                          Text(
                             widget.workoutName,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
@@ -103,8 +87,11 @@ class _TodayActivityState extends State<TodayActivity> {
                                 color: Color.fromARGB(255, 255, 255, 255),
                                 letterSpacing: 1.5),
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 16,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -213,14 +200,6 @@ class _TodayActivityState extends State<TodayActivity> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
-                            // Text(
-                            //   widget.instructor,
-                            //   style: const TextStyle(
-                            //     color: Colors.white,
-                            //     fontSize: 27,
-                            //     fontWeight: FontWeight.w800,
-                            //   ),
-                            // ),
                           ],
                         )
                       ],

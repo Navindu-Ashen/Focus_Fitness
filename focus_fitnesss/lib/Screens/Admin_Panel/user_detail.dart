@@ -1,9 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:async';
-// ignore: unused_import
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -172,6 +166,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
       currentSchedule = widget.schedule;
     }
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+      ),
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -339,7 +337,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
                 child: Container(
                   height: 50,
-                  width: 380,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -373,7 +371,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
                   height: 50,
-                  width: 380,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -407,7 +405,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
                   height: 50,
-                  width: 380,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -441,7 +439,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
                   height: 50,
-                  width: 380,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -479,7 +477,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
                   height: 50,
-                  width: 380,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 60, 60, 60),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -736,12 +734,14 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 150),
-                child: Image.asset(
-                  'assets/logo.png',
-                  height: 130,
-                  width: 130,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Image.asset(
+                    'assets/logo.png',
+                    height: 130,
+                    width: 130,
+                  ),
                 ),
               ),
             ],

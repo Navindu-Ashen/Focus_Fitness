@@ -134,13 +134,13 @@ class _ContactUsState extends State<ContactUs> {
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Icon(
                                       Icons.phone_callback_sharp,
                                       color: Colors.white,
                                       size: 32,
                                     ),
-                                    SizedBox(width: 10),
                                     Text(
                                       "Contact us :",
                                       style: TextStyle(
@@ -150,7 +150,6 @@ class _ContactUsState extends State<ContactUs> {
                                         fontSize: 15,
                                       ),
                                     ),
-                                    SizedBox(width: 35),
                                     Text(
                                       "+940771234567",
                                       style: TextStyle(

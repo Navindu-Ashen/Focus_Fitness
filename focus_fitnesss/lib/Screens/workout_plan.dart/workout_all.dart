@@ -53,7 +53,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
               ),
             ),
             child: Container(
-              margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+              margin: const EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 16,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: const [
@@ -94,11 +97,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   // const SizedBox(width: 8),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             workouts.title,
@@ -110,6 +111,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
+
                           Text(
                             workouts.text,
                             style: const TextStyle(
@@ -121,10 +123,15 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             maxLines: 2,
                           ),
                           //  const SizedBox(height: 5,),
-                          Image.asset(
-                            'assets/logo.png',
-                            height: 30,
-                            width: 30,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Image.asset(
+                                'assets/logo.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                            ],
                           ),
                         ],
                       ),

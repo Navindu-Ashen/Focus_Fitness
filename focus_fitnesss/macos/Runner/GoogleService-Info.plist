@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBfthzaD5EfNVdmunCMqK1BMntd3U8U3bo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>649487348373</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.focusFitnesss.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>focus-fitness-11860</string>
+	<key>STORAGE_BUCKET</key>
+	<string>focus-fitness-11860.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:649487348373:ios:ef3064304a93f2fd6ca19c</string>
+</dict>
+</plist>

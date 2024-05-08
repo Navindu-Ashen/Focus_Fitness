@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -48,6 +39,15 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyA2EPh0ZQdVCkrO2MOtFIsL5ApGX2--8nY',
+    appId: '1:649487348373:web:8e774574f5b5ee3e6ca19c',
+    messagingSenderId: '649487348373',
+    projectId: 'focus-fitness-11860',
+    authDomain: 'focus-fitness-11860.firebaseapp.com',
+    storageBucket: 'focus-fitness-11860.appspot.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCfdGX1RcSGU0xiseTRVu_koYqHYP_hmrM',
@@ -65,4 +65,23 @@ class DefaultFirebaseOptions {
     storageBucket: 'focus-fitness-11860.appspot.com',
     iosBundleId: 'com.example.focusFitnesss',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBfthzaD5EfNVdmunCMqK1BMntd3U8U3bo',
+    appId: '1:649487348373:ios:54016a11508546c76ca19c',
+    messagingSenderId: '649487348373',
+    projectId: 'focus-fitness-11860',
+    storageBucket: 'focus-fitness-11860.appspot.com',
+    iosBundleId: 'com.example.focusFitnesss',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyA2EPh0ZQdVCkrO2MOtFIsL5ApGX2--8nY',
+    appId: '1:649487348373:web:61be01d4acf1335a6ca19c',
+    messagingSenderId: '649487348373',
+    projectId: 'focus-fitness-11860',
+    authDomain: 'focus-fitness-11860.firebaseapp.com',
+    storageBucket: 'focus-fitness-11860.appspot.com',
+  );
+
 }

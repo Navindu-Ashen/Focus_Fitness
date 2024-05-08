@@ -111,7 +111,7 @@ class _AboutUsState extends State<AboutUs> {
                                 elevation: 10,
                               ),
                               child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

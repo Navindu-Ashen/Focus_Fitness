@@ -24,7 +24,6 @@ class _AdminMainState extends State<AdminMain> {
   bool _isGetAdminData = false;
 
   void getUserData() async {
-    final user = FirebaseAuth.instance.currentUser;
     final userData = await FirebaseFirestore.instance
         .collection("admin")
         .doc("admin1")

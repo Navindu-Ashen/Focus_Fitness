@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DietPlanDetail extends StatefulWidget {
   const DietPlanDetail({
@@ -20,7 +19,6 @@ class DietPlanDetail extends StatefulWidget {
 class _DietPlanDetailState extends State<DietPlanDetail> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
