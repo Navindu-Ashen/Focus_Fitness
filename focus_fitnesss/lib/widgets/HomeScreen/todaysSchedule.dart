@@ -4,9 +4,7 @@ import 'package:focus_fitnesss/Screens/today_activity.dart';
 
 class TodaysSdchedule extends StatefulWidget {
   const TodaysSdchedule(
-      {super.key,
-      required this.schedule,
-      required this.instructor});
+      {super.key, required this.schedule, required this.instructor});
 
   final String schedule;
   final String instructor;
