@@ -20,6 +20,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
   var instructor = "";
   var email = "";
   var contactNumber = "";
+  var currentDay = "";
   List<dynamic> attendance = [];
 
   bool _isGetUserData = false;
@@ -39,6 +40,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
         email = userData["email"];
         contactNumber = userData["contact-number"];
         attendance = userData["attendance"];
+        currentDay = userData["currentDay"];
       });
       _isGetUserData = true;
       return;
@@ -57,6 +59,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
             instructor: instructor,
             schedule: schedule,
             attendance: attendance,
+            currentDay: currentDay,
           ),
         ),
       );

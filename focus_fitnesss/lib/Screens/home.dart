@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
     required this.schedule,
     required this.username,
     required this.attendance,
+    required this.currentDay,
   });
 
   final String username;
@@ -29,6 +31,7 @@ class HomeScreen extends StatefulWidget {
   final String email;
   final String contactNumber;
   final List<dynamic> attendance;
+  final String currentDay;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,18 +40,42 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 1;
   Widget? currentContent;
+  final String testSchedule = "level2";
+  var dayName = "";
+  bool _isSchduleData = false;
 
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
-  var calories = "700";
+  var calories = "";
   final String workoutCardTitle = "Cardio Crush";
   final String workoutCardDescription =
-      "Mix fun dance moves with cardio for an exhilarating.";
+      "Mix fun dance moves with cardio for an exhilarating."; 
   final String workoutCardImgPath = "assets/g5.png";
   final String dietPlanCardTitle = "Fitness Fusion";
   final String dietPlanCardDescription =
       "Improvements in strength, endurance, and overall well-being.";
   final String dietPlanCardImgPath = "assets/g6.png";
+
+  void getScheduleData() async {
+    final userData = await FirebaseFirestore.instance
+        .collection("schedules")
+        .doc(testSchedule)
+        .get();
+    if (!_isSchduleData) {
+      setState(() {
+        dayName = userData["${widget.currentDay}-name"];
+        calories = userData["calories-${widget.currentDay}"];
+      });
+      _isSchduleData = true;
+      return;
+    }
+  }
+
+  @override
+  void initState() {
+    getScheduleData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => TestList(instructor: "Kev"),
+                      builder: (ctx) => TestList(
+                        instructor: "Kev",
+                        dayName: dayName,
+                        currentDay: widget.currentDay,
+                      ),
                     ),
                   );
                 },

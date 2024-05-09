@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/today_activity.dart';
 
 class TestList extends StatefulWidget {
-  const TestList({super.key, required this.instructor});
+  const TestList({super.key, required this.instructor, required this.dayName, required this.currentDay,});
 
   final String instructor;
+  final String dayName;
+  final String currentDay;
 
   @override
   State<TestList> createState() => _TestListState();
@@ -16,8 +18,7 @@ class _TestListState extends State<TestList> {
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
   var calories = "500";
-  final String day = "day1";
-  final String dayName = "Legs";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _TestListState extends State<TestList> {
       body: Column(
         children: [
           Text(
-            dayName,
+            widget.dayName,
             style: TextStyle(
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
           ),
@@ -109,8 +110,8 @@ class _TestListState extends State<TestList> {
               }
 
               final data = snapshot.data!.data() as Map<String, dynamic>;
-              exName1 = data['ex_name_$day'] as List<dynamic>;
-              exCount1 = data['ex_count_$day'] as List<dynamic>;
+              exName1 = data['ex_name_${widget.currentDay}'] as List<dynamic>;
+              exCount1 = data['ex_count_${widget.currentDay}'] as List<dynamic>;
 
               calories = data['calories'] as String;
 

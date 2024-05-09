@@ -84,6 +84,7 @@ class _SignupPageState extends State<SignupPage> {
         "instructor": "",
         "attendance": [],
         "created-at": formattedDate,
+        "currentDay" : "day1",
       });
 
       _form.currentState!.reset();
