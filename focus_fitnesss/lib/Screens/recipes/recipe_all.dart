@@ -136,13 +136,14 @@ class _RecipePageState extends State<RecipePage> {
                         const SizedBox(width: 20),
                         Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            padding: const EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, right: 16),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   currentData["name"],
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -154,13 +155,14 @@ class _RecipePageState extends State<RecipePage> {
                                 const SizedBox(height: 8),
                                 Text(
                                   currentData["description"],
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white,
                                   ),
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
+                                  maxLines: 2,
                                 ),
                                 Padding(
                                   padding:

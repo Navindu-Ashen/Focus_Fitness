@@ -99,10 +99,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             workouts.title,
+                            textAlign: TextAlign.right,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -114,6 +115,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
                           Text(
                             workouts.text,
+                            textAlign: TextAlign.right,
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,

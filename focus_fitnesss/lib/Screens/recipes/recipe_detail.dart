@@ -23,72 +23,91 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.network(
-            widget.imageUrl,
-            height: 1000,
-            width: 750,
-            alignment: Alignment.topCenter,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                  ),
-                  iconSize: 30,
-                  color: Colors.white,
-                ),
-              ],
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Image.network(
+              widget.imageUrl,
+              width: double.infinity,
+              alignment: Alignment.topCenter,
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 330),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/logo.png',
-                      height: 60,
-                      width: 60,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 280,
-              ),
-              Expanded(
-                child: Container(
-                  height: screenHeight / 3,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 172, 172, 172),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                    ),
+                    iconSize: 30,
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
-                  child: Center(
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 330),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        height: 60,
+                        width: 60,
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 250,
+                ),
+                Expanded(
+                  child: Container(
+                    height: screenHeight / 3,
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black,
+                            offset: Offset(0, -5),
+                            blurRadius: 8,
+                            spreadRadius: 2)
+                      ],
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 65, 62, 62),
+                          Color.fromARGB(255, 24, 23, 23)
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30)),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: SingleChildScrollView(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Text(
                               "Diet Plan",
                               style: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.black,
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(
+                              height: 16,
                             ),
                             Text(
                               widget.name,
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
@@ -103,7 +122,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                               style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(
@@ -128,10 +147,10 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

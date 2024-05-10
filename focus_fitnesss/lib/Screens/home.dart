@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
-import 'package:focus_fitnesss/Screens/testlist.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
 import 'package:focus_fitnesss/widgets/headerBar.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeBanner.dart';
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var calories = "";
   final String workoutCardTitle = "Cardio Crush";
   final String workoutCardDescription =
-      "Mix fun dance moves with cardio for an exhilarating."; 
+      "Mix fun dance moves with cardio for an exhilarating.";
   final String workoutCardImgPath = "assets/g5.png";
   final String dietPlanCardTitle = "Fitness Fusion";
   final String dietPlanCardDescription =
@@ -105,22 +104,22 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 8,
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => TestList(
-                        instructor: "Kev",
-                        dayName: dayName,
-                        currentDay: widget.currentDay,
-                      ),
-                    ),
-                  );
-                },
-                child: Text("Testing"),
-              ),
-            ),
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.of(context).push(
+            //         MaterialPageRoute(
+            //           builder: (ctx) => TestList(
+            //             instructor: "Kev",
+            //             dayName: dayName,
+            //             currentDay: widget.currentDay,
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //     child: Text("Testing"),
+            //   ),
+            // ),
             HomeRow(calories: calories),
             const SizedBox(
               height: 15,

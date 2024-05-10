@@ -5,6 +5,8 @@ import 'package:focus_fitnesss/Screens/about_us.dart';
 // ignore: unused_import
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:focus_fitnesss/main.dart';
+import 'package:focus_fitnesss/widgets/headerBar.dart';
+import 'package:focus_fitnesss/widgets/profileTextHolder.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({
@@ -40,40 +42,16 @@ class _UserProfileState extends State<UserProfile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: const Color.fromARGB(255, 164, 162, 162),
-                width: double.infinity,
-                height: 75,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: NetworkImage(widget.imageUrl),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, left: 110),
-                      child: Text(
-                        "Welcome Back!",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 110),
-                      child: Text(
-                        widget.username,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    )
-                  ],
+              // HeaderBar(
+              //   imgUrl: widget.imageUrl,
+              //   schedule: widget.schedule,
+              //   username: widget.username,
+              // ),
+              Center(
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundColor: Colors.amber,
+                  foregroundImage: NetworkImage(widget.imageUrl),
                 ),
               ),
               const SizedBox(
@@ -93,107 +71,15 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "User Name :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.username,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "User Email :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.email,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ProfileTextHolder(
+                  feildName: "User Name", username: widget.username),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Contact number :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.contactNumber,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ProfileTextHolder(
+                  feildName: "User Email", username: widget.email),
+              const SizedBox(height: 8),
+              ProfileTextHolder(
+                  feildName: "Contact number", username: widget.contactNumber),
               const SizedBox(
                 height: 15,
               ),
@@ -207,106 +93,18 @@ class _UserProfileState extends State<UserProfile> {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Valid until :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.validUnti,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Active workout plan :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.schedule,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ProfileTextHolder(
+                  feildName: "Valid untill", username: "4/8/2024"),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 60,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Your instructor :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.instructor,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              ProfileTextHolder(
+                  feildName: "Active schedule", username: widget.schedule),
+              const SizedBox(height: 8),
+              ProfileTextHolder(
+                feildName: "Your instructor",
+                username: widget.instructor == ""
+                    ? "No instructor"
+                    : widget.instructor,
               ),
               const SizedBox(
                 height: 20,
