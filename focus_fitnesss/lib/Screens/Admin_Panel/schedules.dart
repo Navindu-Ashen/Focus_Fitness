@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Schedules extends StatefulWidget {
   const Schedules({
@@ -95,15 +96,23 @@ class _SchedulesState extends State<Schedules> {
                   if (!snapshot.hasData) {
                     return const CircularProgressIndicator();
                   }
-        
+
                   final data = snapshot.data!.data() as Map<String, dynamic>;
                   exName1 = data['ex_name_1'] as List<dynamic>;
                   exCount1 = data['ex_sets_1'] as List<dynamic>;
                   calories = data['calories'] as String;
-        
+
                   return Column(
                     children: [
-                      SizedBox(
+                      Container(
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            spreadRadius: 10,
+                            blurRadius: 12,
+                            blurStyle: BlurStyle.inner,
+                          )
+                        ]),
                         height: 400,
                         child: ListView.builder(
                           reverse: false,
@@ -121,7 +130,8 @@ class _SchedulesState extends State<Schedules> {
                                 color: Color.fromARGB(255, 60, 60, 60),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -151,11 +161,14 @@ class _SchedulesState extends State<Schedules> {
                           },
                         ),
                       ),
+                      const SizedBox(
+                        height: 32,
+                      ),
                       Container(
                         height: 50,
                         width: double.infinity,
-                        margin:
-                            const EdgeInsets.only(left: 16, right: 16, bottom: 5),
+                        margin: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 5),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
@@ -176,7 +189,8 @@ class _SchedulesState extends State<Schedules> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 calories,
                                 style: const TextStyle(

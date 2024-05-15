@@ -39,7 +39,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
   String currentSchedule = "";
   String? selectedSchedule;
   List<String> currentSchedleList = [];
-  // ignore: unused_field
   String _selectedSchedule = "";
   String selectedInstructor = "";
   String currentInstructor = "";

@@ -5,7 +5,6 @@ import 'package:focus_fitnesss/Screens/about_us.dart';
 // ignore: unused_import
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:focus_fitnesss/main.dart';
-import 'package:focus_fitnesss/widgets/headerBar.dart';
 import 'package:focus_fitnesss/widgets/profileTextHolder.dart';
 
 class UserProfile extends StatefulWidget {

@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/today_activity.dart';
 
 class TodaysSdchedule extends StatefulWidget {
-  const TodaysSdchedule(
-      {super.key, required this.schedule, required this.instructor});
+  const TodaysSdchedule({
+    super.key,
+    required this.schedule,
+    required this.instructor,
+    required this.currentDay,
+  });
 
   final String schedule;
   final String instructor;
+  final String currentDay;
 
   @override
   State<TodaysSdchedule> createState() => _TodaysSdcheduleState();
@@ -23,41 +28,10 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 5, right: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Today's activity",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TodayActivity(
-                        exersiceNames: exName1,
-                        exersiceCounts: exCount1,
-                        calories: calories,
-                        instructor: widget.instructor,
-                        workoutName: widget.schedule,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "see all",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 94, 94),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
+          child: const Text(
+            "Today's schedule",
+            style: TextStyle(
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
           ),
         ),
         const SizedBox(
@@ -72,7 +46,7 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
             if (!snapshot.hasData) {
               return const Center(
                 child: Text(
-                  "No plans added",
+                  "No schedule added",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -95,11 +69,10 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
             }
 
             final data = snapshot.data!.data() as Map<String, dynamic>;
-            exName1 = data['ex_name_1'] as List<dynamic>;
-            exCount1 = data['ex_sets_1'] as List<dynamic>;
+            exName1 = data['ex_name_${widget.currentDay}'] as List<dynamic>;
+            exCount1 = data['ex_count_${widget.currentDay}'] as List<dynamic>;
 
             calories = data['calories'] as String;
-
             return SizedBox(
               height: 110,
               child: ListView.builder(
@@ -147,6 +120,51 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
               ),
             );
           },
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SizedBox(
+            height: 40,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TodayActivity(
+                      exersiceNames: exName1,
+                      exersiceCounts: exCount1,
+                      calories: calories,
+                      instructor: widget.instructor,
+                      workoutName: widget.schedule,
+                    ),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                padding: const EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                backgroundColor: const Color.fromARGB(255, 255, 94, 94),
+              ),
+              child: const Center(
+                child: Text(
+                  "See all schedule",
+                  style: TextStyle(
+                    letterSpacing: 1.7,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 16,
         ),
       ],
     );

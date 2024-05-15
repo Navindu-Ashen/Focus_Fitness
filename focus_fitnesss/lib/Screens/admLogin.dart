@@ -1,11 +1,5 @@
-// ignore_for_file: unused_import
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// ignore: duplicate_ignore
-// ignore: unused_import
-import 'package:focus_fitnesss/Screens/Admin_Panel/admHome.dart';
-import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:focus_fitnesss/main.dart';
 
 final _firebase = FirebaseAuth.instance;

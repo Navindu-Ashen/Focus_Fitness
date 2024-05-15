@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Screens/Admin_Panel/admin_main.dart';
+import 'package:focus_fitnesss/Screens/Admin_Panel/admin_home.dart';
 import 'package:focus_fitnesss/Screens/checkAuth.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';

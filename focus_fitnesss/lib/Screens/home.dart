@@ -95,11 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   username: widget.username),
             ),
             HomePageBanner(
-              gymDay: "Leg Day",
+              gymDay: dayName,
             ),
             TodaysSdchedule(
               schedule: widget.schedule,
               instructor: widget.instructor,
+              currentDay: widget.currentDay,
             ),
             const SizedBox(
               height: 8,
