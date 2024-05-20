@@ -18,6 +18,8 @@ class UserDetailPage extends StatefulWidget {
     required this.imageUrl,
     required this.instructor,
     required this.adminName,
+    required this.currentDay,
+    required this.createdAt,
   });
   final String userName;
   final String userEmail;
@@ -27,6 +29,8 @@ class UserDetailPage extends StatefulWidget {
   final String imageUrl;
   final String instructor;
   final String adminName;
+  final String currentDay;
+  final String createdAt;
 
   @override
   State<UserDetailPage> createState() => _UserDetailPageState();
@@ -46,17 +50,15 @@ class _UserDetailPageState extends State<UserDetailPage> {
   String formattedDate2 = "";
   bool _isAttendanceMarking = false;
   bool attendaceMarcked = false;
+  bool _isScheduleChanging = false;
+  bool _isInstructorChanging = false;
 
   List<dynamic> attendance = [];
   bool _getAttendaceData = false;
   String lastAttendance = "";
 
-  @override
-  void initState() {
-    super.initState();
-    getUserAttendance();
-    getDocumentNames();
-  }
+  List<dynamic> availableSchedules = [];
+  var currentDayIndex;
 
   Future<void> getDocumentNames() async {
     // Get a reference to the schedules collection
@@ -77,8 +79,13 @@ class _UserDetailPageState extends State<UserDetailPage> {
     if (!isValid) {
       return;
     }
+
     _form.currentState!.save();
     FocusScope.of(context).unfocus();
+
+    setState(() {
+      _isScheduleChanging = true;
+    });
 
     await FirebaseFirestore.instance
         .collection("users")
@@ -97,6 +104,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
     }
     _form2.currentState!.save();
     FocusScope.of(context).unfocus();
+
+    setState(() {
+      _isInstructorChanging = true;
+    });
 
     await FirebaseFirestore.instance
         .collection("users")
@@ -118,9 +129,44 @@ class _UserDetailPageState extends State<UserDetailPage> {
     Navigator.of(context).pop();
   }
 
+  void getScheduleData() async {
+    final userData = await FirebaseFirestore.instance
+        .collection("schedules")
+        .doc(widget.schedule)
+        .get();
+
+    setState(() {
+      availableSchedules = userData["available"];
+    });
+    for (int i = 0; i < availableSchedules.length; i++) {
+      if (widget.currentDay == availableSchedules[i]) {
+        currentDayIndex = i;
+        print(currentDayIndex + 1);
+        print(availableSchedules);
+        print(availableSchedules.length);
+      }
+    }
+  }
+
   void markAttendance() {
     final now = DateTime.now();
     formattedDate = formatter.format(now);
+
+    if (currentDayIndex + 1 == availableSchedules.length) {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.userUid)
+          .update({
+        "currentDay": availableSchedules[0],
+      });
+    } else {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.userUid)
+          .update({
+        "currentDay": availableSchedules[currentDayIndex + 1],
+      });
+    }
 
     setState(() {
       _isAttendanceMarking = true;
@@ -158,6 +204,14 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getUserAttendance();
+    getDocumentNames();
+    getScheduleData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.schedule == "") {
       currentSchedule = "Not available";
@@ -168,6 +222,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
+        title: Text(
+          "Edit user data",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -323,7 +381,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   Padding(
                     padding: EdgeInsets.only(left: 25),
                     child: Text(
-                      "Current details :",
+                      "User details :",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -510,6 +568,78 @@ class _UserDetailPageState extends State<UserDetailPage> {
               const SizedBox(
                 height: 15,
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 60, 60, 60),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10),
+                        child: Text(
+                          "Created at :",
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        right: 15,
+                        child: Text(
+                          widget.createdAt,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 60, 60, 60),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10),
+                        child: Text(
+                          "Current Day :",
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        right: 15,
+                        child: Text(
+                          widget.currentDay,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               const Padding(
                 padding: EdgeInsets.only(left: 25),
                 child: Text(
@@ -605,15 +735,28 @@ class _UserDetailPageState extends State<UserDetailPage> {
                       ),
                       backgroundColor: const Color.fromARGB(255, 255, 94, 94),
                     ),
-                    child: const Center(
-                      child: Text(
-                        "Add or Change schedule",
-                        style: TextStyle(
-                          letterSpacing: 1,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          if (!_isScheduleChanging)
+                            Text(
+                              "Add or Change schedule",
+                              style: TextStyle(
+                                letterSpacing: 1,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                              ),
+                            ),
+                          if (_isScheduleChanging)
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),
@@ -685,15 +828,28 @@ class _UserDetailPageState extends State<UserDetailPage> {
                       ),
                       backgroundColor: const Color.fromARGB(255, 255, 94, 94),
                     ),
-                    child: const Center(
-                      child: Text(
-                        "Add or Change instructor",
-                        style: TextStyle(
-                          letterSpacing: 1,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          if (!_isInstructorChanging)
+                            Text(
+                              "Add or Change instructor",
+                              style: TextStyle(
+                                letterSpacing: 1,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                              ),
+                            ),
+                          if (_isInstructorChanging)
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),

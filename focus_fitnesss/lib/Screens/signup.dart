@@ -84,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
         "instructor": "",
         "attendance": [],
         "created-at": formattedDate,
-        "currentDay" : "day1",
+        "currentDay": "day1",
       });
 
       _form.currentState!.reset();
@@ -223,6 +223,8 @@ class _SignupPageState extends State<SignupPage> {
                                 validator: (value) {
                                   if (value == null || value.trim().isEmpty) {
                                     return "Enter your name";
+                                  } else if (value.contains('@')) {
+                                    return "The name should not contain special characters";
                                   }
                                   return null;
                                 },

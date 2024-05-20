@@ -148,6 +148,8 @@ class _ManageUsersState extends State<ManageUsers> {
                                             instructor:
                                                 currentData["instructor"],
                                             adminName: widget.adminName,
+                                            currentDay: currentData["currentDay"],
+                                            createdAt: currentData["created-at"],
                                           ),
                                         ),
                                       );
