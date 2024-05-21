@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/adminHeader.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/dataField.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd();
@@ -92,6 +94,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
         .doc(widget.userUid)
         .update({
       "schedule": selectedSchedule,
+      "currentDay": "day1",
     });
 
     Navigator.of(context).pop();
@@ -152,6 +155,18 @@ class _UserDetailPageState extends State<UserDetailPage> {
     final now = DateTime.now();
     formattedDate = formatter.format(now);
 
+    if (widget.schedule == 0) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please set a schedule before mark attendance!",
+          ),
+        ),
+      );
+      return;
+    }
+
     if (currentDayIndex + 1 == availableSchedules.length) {
       FirebaseFirestore.instance
           .collection("users")
@@ -193,11 +208,13 @@ class _UserDetailPageState extends State<UserDetailPage> {
         attendance = userData["attendance"];
       });
       _getAttendaceData = true;
-      lastAttendance = userData["attendance"][attendance.length - 1];
-      if (lastAttendance == formattedDate2) {
-        setState(() {
-          attendaceMarcked = true;
-        });
+      if (attendance.isNotEmpty) {
+        lastAttendance = userData["attendance"][attendance.length - 1];
+        if (lastAttendance == formattedDate2) {
+          setState(() {
+            attendaceMarcked = true;
+          });
+        }
       }
       return;
     }
@@ -206,9 +223,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
   @override
   void initState() {
     super.initState();
-    getUserAttendance();
+    if (widget.schedule != "") {
+      getUserAttendance();
+      getScheduleData();
+    }
     getDocumentNames();
-    getScheduleData();
   }
 
   @override
@@ -233,45 +252,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Container(
-                  color: const Color.fromARGB(255, 164, 162, 162),
-                  width: double.infinity,
-                  height: 75,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                        child: CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage("assets/p1.png"),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 15, left: 110),
-                        child: Text(
-                          "Welcome to ADMIN PANEL",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 51, 49, 49),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 30, left: 110),
-                        child: Text(
-                          widget.adminName,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              AdminHeader(adminName: widget.adminName),
               const SizedBox(
                 height: 10,
               ),
@@ -390,253 +371,37 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "User Name :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.userName,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(title: "User Name :", value: widget.userName),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "User Email :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.userEmail,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(title: "User Email :", value: widget.userEmail),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Contact number :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.contactNumber,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(title: "Contact Numbet :", value: widget.contactNumber),
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Active schedule :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.schedule == ""
-                              ? "No active schedule"
-                              : widget.schedule,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(
+                  title: "Active Schedule :",
+                  value: widget.schedule == ""
+                      ? "No schedule assigned"
+                      : widget.schedule),
               const SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Instructor :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.instructor == ""
-                              ? "No instructor added"
-                              : widget.instructor,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(
+                  title: "Instructor :",
+                  value: widget.instructor == ""
+                      ? "No instructor assigned"
+                      : widget.instructor),
               const SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Created at :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.createdAt,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(title: "Created at :", value: widget.createdAt),
               const SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 60, 60, 60),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          "Current Day :",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        right: 15,
-                        child: Text(
-                          widget.currentDay,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DataField(
+                  title: "Current Day :",
+                  value: widget.currentDay == ""
+                      ? "No schedule assigned"
+                      : widget.currentDay),
               const SizedBox(
                 height: 15,
               ),
