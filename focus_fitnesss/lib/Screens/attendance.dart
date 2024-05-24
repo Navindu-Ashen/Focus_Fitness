@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:focus_fitnesss/Screens/attendanceList.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class AttendanceScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 8, right: 8),
@@ -87,63 +88,78 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               const SizedBox(
                 height: 20,
               ),
+              Text(
+                "Mark your Attendance.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                color: const Color.fromARGB(255, 31, 31, 31),
+                child: Center(child: Image.asset("assets/testQR.png")),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  color: const Color.fromARGB(255, 31, 31, 31),
-                  height: screenHeight / 3,
-                  child: ListView.builder(
-                    reverse: false,
-                    scrollDirection: Axis.vertical,
-                    itemCount: widget.attendance.length,
-                    itemBuilder: (ctx, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 5),
-                        child: Container(
-                          height: 40,
-                          width: 300,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Color.fromARGB(255, 60, 60, 60),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${(widget.attendance.length - index)}",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  widget.attendance[
-                                      (widget.attendance.length - index) - 1],
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  "Note: Your should mark your attendance when arriving and leaving the gym.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendanceListScreen(
+                                attendance: widget.attendance)),
                       );
                     },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      padding: const EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 255, 94, 94),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "See all attendance",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20, left: 150),
+                padding: const EdgeInsets.only(top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
