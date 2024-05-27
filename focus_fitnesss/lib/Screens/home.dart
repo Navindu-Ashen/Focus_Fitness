@@ -4,9 +4,9 @@ import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/homeCard2.dart';
 import 'package:focus_fitnesss/widgets/headerBar.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeBanner.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/homeCard.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeRow.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/todaysSchedule.dart';
 
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     currentContent = SafeArea(
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
@@ -105,108 +105,55 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 8,
             ),
-            // Center(
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.of(context).push(
-            //         MaterialPageRoute(
-            //           builder: (ctx) => TestList(
-            //             instructor: "Kev",
-            //             dayName: dayName,
-            //             currentDay: widget.currentDay,
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //     child: Text("Testing"),
-            //   ),
-            // ),
             HomeRow(calories: calories),
             const SizedBox(
               height: 15,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "More workouts",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400),
+            HomeCard2(
+              buttonText: "See all pre-workouts",
+              description:
+                  "No matter your fitness goals, there is an often overlooked component of success: stretching!",
+              imgPath: "assets/5.jpg",
+              title: "Best Pre and Post-Workout to Your Routine",
+              textAlign: TextAlign.left,
+              onButtonPress: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => WorkoutPage(),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WorkoutPage()),
-                      );
-                    },
-                    child: const Text(
-                      "see all",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 255, 94, 94),
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            HomeCard(
-              description: workoutCardDescription,
-              imagePath: workoutCardImgPath,
-              title: workoutCardTitle,
-              color: Color.fromARGB(255, 255, 94, 94),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Diet Plans",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RecipePage()),
-                      );
-                    },
-                    child: const Text(
-                      "see all",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 255, 94, 94),
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            HomeCard(
-              description: dietPlanCardDescription,
-              imagePath: dietPlanCardImgPath,
-              title: dietPlanCardTitle,
-              color: Color.fromARGB(255, 60, 60, 60),
+                );
+              },
             ),
             const SizedBox(
               height: 20,
-            )
+            ),
+            HomeCard2(
+              buttonText: "See all diet plans",
+              description:
+                  "A healthy eating plan gives your body the nutrients it needs every day while staying within your daily calorie goal for weight loss.",
+              imgPath: "assets/dietPlanWall3.jpg",
+              title: "Well managed diet plans for your fitness",
+              textAlign: TextAlign.right,
+              onButtonPress: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => RecipePage(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: SizedBox(
+                width: 150,
+                child: Image.asset("assets/logo.png"),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),

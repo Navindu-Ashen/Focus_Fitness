@@ -21,7 +21,7 @@ class TodaysSdchedule extends StatefulWidget {
 class _TodaysSdcheduleState extends State<TodaysSdchedule> {
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
-  var calories = "500";
+  var calories = "Loading";
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,7 +72,7 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
             exName1 = data['ex_name_${widget.currentDay}'] as List<dynamic>;
             exCount1 = data['ex_count_${widget.currentDay}'] as List<dynamic>;
 
-            calories = data['calories'] as String;
+            calories = data['calories-${widget.currentDay}'] as String;
             return SizedBox(
               height: 110,
               child: ListView.builder(

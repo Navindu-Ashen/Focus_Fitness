@@ -107,7 +107,7 @@ class _TodayActivityState extends State<TodayActivity> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
-                      color: Color.fromARGB(255, 255, 119, 119),
+                      color: Color.fromARGB(255, 255, 94, 94),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,7 +116,7 @@ class _TodayActivityState extends State<TodayActivity> {
                           padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: const Color.fromARGB(255, 204, 95, 95),
+                            color: Color.fromARGB(255, 214, 78, 78),
                             boxShadow: const [
                               BoxShadow(
                                 color: Colors.black,
@@ -160,7 +160,7 @@ class _TodayActivityState extends State<TodayActivity> {
                         Container(
                           padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 204, 95, 95),
+                            color: Color.fromARGB(255, 214, 78, 78),
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: const [
                               BoxShadow(
@@ -217,52 +217,40 @@ class _TodayActivityState extends State<TodayActivity> {
                   itemCount: widget.exersiceNames.length,
                   itemBuilder: (ctx, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 300,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                              color: Color.fromARGB(255, 60, 60, 60),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    widget.exersiceNames[index],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.exersiceCounts[index],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      child: Container(
+                        height: 50,
+                        width: 300,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          Container(
-                            height: 52,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 255, 119, 119)),
-                          )
-                        ],
+                          color: Color.fromARGB(255, 60, 60, 60),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.exersiceNames[index],
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                widget.exersiceCounts[index],
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
