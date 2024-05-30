@@ -1,4 +1,4 @@
-# Gym Management Mobile Application
+# Gym Management System
 
 This Gym Management App is a mobile application developed using Flutter and Firebase. It provides gym owners and managers with a comprehensive solution to manage their gym operations efficiently, including member management, class scheduling, payment tracking, and more.
 
