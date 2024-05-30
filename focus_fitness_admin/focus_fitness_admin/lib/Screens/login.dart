@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/about_us.dart';
 import 'package:focus_fitnesss/Screens/admLogin.dart';
 import 'package:focus_fitnesss/Screens/signup.dart';
 
@@ -91,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 35,),
+                SizedBox(
+                  height: 35,
+                ),
                 Center(
                   child: Column(
                     children: [
@@ -133,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                                     fontWeight: FontWeight.w500),
                               ),
                               const Text(
-                                "LOGIN",
+                                "ADMIN LOGIN",
                                 style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.w900,
@@ -142,10 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               const Text(
-                                "Welcome to Your Ultimate Training Companion",
+                                "Welcome to FOCUSS FITNESS Admin panel",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
@@ -162,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                   decoration: InputDecoration(
                                     prefixIcon:
                                         const Icon(Icons.email_outlined),
-                                    labelText: "Your Email",
+                                    labelText: "Admin Email",
                                     labelStyle: const TextStyle(
                                       color: Color.fromARGB(255, 172, 172, 172),
                                     ),
@@ -206,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                         color: Colors.grey,
                                       ),
                                     ),
-                                    labelText: "Your Password",
+                                    labelText: "Admin Password",
                                     labelStyle: const TextStyle(
                                       color: Color.fromARGB(255, 172, 172, 172),
                                     ),
@@ -258,8 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                                       elevation: 0,
                                       padding: const EdgeInsets.all(14),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50),
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
                                       backgroundColor: const Color.fromARGB(
                                           255, 255, 94, 94),
@@ -287,8 +289,7 @@ class _LoginPageState extends State<LoginPage> {
                                       elevation: 0,
                                       padding: const EdgeInsets.all(14),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50),
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
                                       backgroundColor: const Color.fromARGB(
                                           255, 255, 94, 94),
@@ -322,18 +323,16 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignupPage(),
+                                      builder: (context) => const AboutUs(),
                                     ),
                                   );
                                 },
                                 child: const Text(
-                                  "CREATE AN ACCOUNT",
+                                  "CONTACT OWNER",
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
-                                      color:
-                                          Color.fromARGB(255, 255, 94, 94)),
+                                      color: Color.fromARGB(255, 255, 94, 94)),
                                 ),
                               )
                             ],

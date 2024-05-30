@@ -14,29 +14,33 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            'assets/2.jpg',
-            height: 1000,
-            width: 750,
-            alignment: Alignment.topCenter,
+          Positioned(
+            child: Image.asset(
+              'assets/newgym.jpg',
+              width: double.infinity,
+              alignment: Alignment.topCenter,
+              fit: BoxFit.cover,
+            ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 100, left: 90, right: 90),
+              SizedBox(
+                height: 35,
+              ),
+              Center(
                 child: Column(
                   children: [
                     Image.asset(
                       'assets/logo.png',
-                      height: 230,
-                      width: 230,
+                      height: 180,
+                      width: 180,
                     )
                   ],
                 ),
               ),
               const SizedBox(
-                height: 40,
+                height: 150,
               ),
               Expanded(
                 child: Container(
