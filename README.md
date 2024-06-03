@@ -1,13 +1,13 @@
-# Gym Management Mobile Application
+# Focus Fitness: Gym Management System
 
 This Gym Management App is a mobile application developed using Flutter and Firebase. It provides gym owners and managers with a comprehensive solution to manage their gym operations efficiently, including member management, class scheduling, payment tracking, and more.
 
 ## Features
 
 - **Member Management:** Keep track of member details, attendance, membership plans, and payments.
-- **Payment Tracking:** Monitor member payments, send payment reminders, and generate payment reports.
+- **Payment Tracking:** Monitor member payments, send reminders, and generate payment reports.
 - **Notifications:** Send automated notifications for class schedules, payment reminders, and other important updates.
-- **Admin Dashboard:** Accessible admin dashboard for easy management of all gym activities.
+- **Admin Dashboard:** Accessible admin dashboard for easily managing all gym activities.
 - **User Authentication:** Secure login system for admins, staff, and members with Firebase Authentication.
 
 ## Technologies Used
