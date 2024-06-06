@@ -6,6 +6,8 @@ import 'package:focus_fitnesss/Screens/Admin_Panel/contact_us.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_diet_plan.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_schedules.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_users.dart';
+import 'package:focus_fitnesss/Screens/help_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdminMain extends StatefulWidget {
   const AdminMain({super.key});
@@ -47,484 +49,1159 @@ class _AdminMainState extends State<AdminMain> {
   @override
   Widget build(BuildContext context) {
     currentScreen = SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
+        children: [
+          Positioned(
+            child: Image.asset(
+              'assets/newgym1.jpg',
+              width: double.infinity,
+              alignment: Alignment.topCenter,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Row(
             children: [
               Container(
-                color: const Color.fromARGB(255, 164, 162, 162),
-                width: double.infinity,
-                height: 75,
-                child: Stack(
+                width: 250,
+                height: double.infinity,
+                color: Color.fromARGB(255, 46, 46, 46),
+                child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: AssetImage("assets/p1.png"),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, left: 110),
-                      child: Text(
-                        "Welcome to ADMIN PANEL",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Image.asset(
+                        'assets/logo.png',
+                        height: 130,
+                        width: 130,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 110),
-                      child: Text(
-                        adminName,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
+                      padding: const EdgeInsets.only(left: 15, top: 30),
+                      child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AdminMain()),
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.home,
+                                          color: Colors.white,
+                                          size: 22,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Dashboard",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AdminProfile()),
+                                      );
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                          size: 22,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Profile",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ContactUs()),
+                                      );
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.phone,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Contact Us",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 385),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        height: 30,
+                        width: 220,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            FirebaseAuth.instance.signOut();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            padding: const EdgeInsets.all(8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 94, 94),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Image.asset(
+                            'assets/d1.png',
+                            color: Colors.white,
+                            width: 30,
+                            height: 30,
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Image.asset(
+                            'assets/d2.png',
+                            color: Colors.white,
+                            width: 30,
+                            height: 30,
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Image.asset(
+                            'assets/d3.png',
+                            color: Colors.white,
+                            width: 30,
+                            height: 30,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HelpPage()),
+                          );
+                        },
+                        child: Text(
+                          "Help",
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ))
                   ],
                 ),
               ),
               const SizedBox(
-                height: 50,
+                width: 250,
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            "DASHBOARD",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1),
+                          ),
+                          Text(
+                            "FOCUSS FITNESS",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
                     children: [
-                      SizedBox(
-                        height: 50,
-                        width: 750,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ManageUsers(
-                                  adminName: adminName,
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 170,
+                                width: 350,
+                                decoration: const BoxDecoration(
+                                  color: const Color.fromARGB(255, 255, 94, 94),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.person_pin,
+                                            color: Colors.white,
+                                            size: 50,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Members",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 35,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            width: 320,
+                                            height: 30,
+                                            decoration: const BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 46, 46, 46),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Active Members",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  Text(
+                                                    "100",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 125,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(255, 46, 46, 46),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                "Active users :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              StreamBuilder(
+                                                stream: FirebaseFirestore
+                                                    .instance
+                                                    .collection("users")
+                                                    .snapshots(),
+                                                builder: (cxt, chatSnapshot) {
+                                                  if (chatSnapshot
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "Loading...",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  if (!chatSnapshot.hasData ||
+                                                      chatSnapshot
+                                                          .data!.docs.isEmpty) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "No users added",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  if (chatSnapshot.hasError) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "Somthing went wrong",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final loadedData =
+                                                      chatSnapshot.data!.docs;
+                                                  return Text(
+                                                    "${loadedData.length}",
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManageUsers(
+                                                          adminName: '',
+                                                        )),
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Manage Members",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                            elevation: 0,
-                            padding: const EdgeInsets.all(8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(255, 254, 94, 94),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Manage Users",
-                              style: TextStyle(
-                                letterSpacing: 1.7,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
+                              const SizedBox(
+                                width: 60,
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: 750,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ManageSchedule(
-                                  adminName: adminName,
+                              Container(
+                                height: 170,
+                                width: 350,
+                                decoration: const BoxDecoration(
+                                  color: const Color.fromARGB(255, 255, 94, 94),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.space_dashboard_outlined,
+                                            color: Colors.white,
+                                            size: 50,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Schedules",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 35,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 320,
+                                            height: 30,
+                                            decoration: const BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 46, 46, 46),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  const Text(
+                                                    "Active Schedules",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  StreamBuilder(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection("schedules")
+                                                        .snapshots(),
+                                                    builder:
+                                                        (cxt, chatSnapshot) {
+                                                      if (chatSnapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return const Center(
+                                                          child: Text(
+                                                            "Loading...",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                        );
+                                                      }
+
+                                                      if (!chatSnapshot
+                                                              .hasData ||
+                                                          chatSnapshot.data!
+                                                              .docs.isEmpty) {
+                                                        return const Center(
+                                                          child: Text(
+                                                            "No schedules added",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                        );
+                                                      }
+
+                                                      if (chatSnapshot
+                                                          .hasError) {
+                                                        return const Center(
+                                                          child: Text(
+                                                            "Somthing went wrong",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final loadedData =
+                                                          chatSnapshot
+                                                              .data!.docs;
+                                                      return Text(
+                                                        "${loadedData.length}",
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 37,
+                                          ),
+                                          Row(
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ManageSchedule(
+                                                              adminName: '',
+                                                            )),
+                                                  );
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      "Manage Schedules",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                            elevation: 0,
-                            padding: const EdgeInsets.all(8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(255, 254, 94, 94),
+                            ],
                           ),
-                          child: const Center(
-                            child: Text(
-                              "Manage Schedules",
-                              style: TextStyle(
-                                letterSpacing: 1.7,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17,
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 170,
+                                width: 350,
+                                decoration: const BoxDecoration(
+                                  color: const Color.fromARGB(255, 255, 94, 94),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.restaurant,
+                                            color: Colors.white,
+                                            size: 50,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Diet-Plans",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 35,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 320,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(255, 46, 46, 46),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                "Active Diet-Plans",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              StreamBuilder(
+                                                stream: FirebaseFirestore
+                                                    .instance
+                                                    .collection("diet-plans")
+                                                    .snapshots(),
+                                                builder: (cxt, chatSnapshot) {
+                                                  if (chatSnapshot
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "Loading...",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  if (!chatSnapshot.hasData ||
+                                                      chatSnapshot
+                                                          .data!.docs.isEmpty) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "No plans added",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  if (chatSnapshot.hasError) {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "Somthing went wrong",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final loadedData =
+                                                      chatSnapshot.data!.docs;
+                                                  return Text(
+                                                    "${loadedData.length}",
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 37,
+                                      ),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManageDietPlan(
+                                                          adminName: '',
+                                                        )),
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Manage Plans",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: 750,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ManageDietPlan(adminName: adminName,)),
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                            elevation: 0,
-                            padding: const EdgeInsets.all(8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(255, 254, 94, 94),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Manage Diet plans",
-                              style: TextStyle(
-                                letterSpacing: 1.7,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17,
+                              const SizedBox(
+                                width: 60,
                               ),
-                            ),
+                              Container(
+                                height: 170,
+                                width: 350,
+                                decoration: const BoxDecoration(
+                                  color: const Color.fromARGB(255, 255, 94, 94),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.perm_contact_cal_sharp,
+                                            color: Colors.white,
+                                            size: 50,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Instructors",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 35,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 320,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(255, 46, 46, 46),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                "Active Instructors",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              Text(
+                                                "5",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 37,
+                                      ),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {},
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Manage Instructors",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 110,
+                                width: 350,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    padding: const EdgeInsets.all(8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 94, 94),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              'assets/cash.png',
+                                              height: 65,
+                                              width: 65,
+                                            ),
+                                            const SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              "Payments",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 40,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "Manage Payments",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 60,
+                              ),
+                              Container(
+                                height: 110,
+                                width: 350,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    padding: const EdgeInsets.all(8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 94, 94),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.qr_code_2,
+                                              color: Colors.white,
+                                              size: 60,
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              "Scan Member Details",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "Scan Member QR",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 40,
+                                width: 760,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    padding: const EdgeInsets.all(8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 94, 94),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Get Current Summary",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 40,
+                                width: 760,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    padding: const EdgeInsets.all(8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 94, 94),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Contact Developers",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: const Column(
-                  children: [
-                    Text(
-                      "Current details :",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 25, right: 15, left: 15),
-                  child: Container(
-                    height: 50,
-                    width: 750,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Active users :",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("users")
-                                .snapshots(),
-                            builder: (cxt, chatSnapshot) {
-                              if (chatSnapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: Text(
-                                    "Loading...",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (!chatSnapshot.hasData ||
-                                  chatSnapshot.data!.docs.isEmpty) {
-                                return const Center(
-                                  child: Text(
-                                    "No users added",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (chatSnapshot.hasError) {
-                                return const Center(
-                                  child: Text(
-                                    "Somthing went wrong",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                              final loadedData = chatSnapshot.data!.docs;
-                              return Text(
-                                "${loadedData.length}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              );
-                            },
-                          ),
-                        ],
+                  Column(
+                    children: [
+                      Text(
+                        "© 2024 FOCUS FITNESS, All Rights Reserved.",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Container(
-                    height: 50,
-                    width: 750,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "No of schedules :",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("schedules")
-                                .snapshots(),
-                            builder: (cxt, chatSnapshot) {
-                              if (chatSnapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: Text(
-                                    "Loading...",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (!chatSnapshot.hasData ||
-                                  chatSnapshot.data!.docs.isEmpty) {
-                                return const Center(
-                                  child: Text(
-                                    "No schedules added",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (chatSnapshot.hasError) {
-                                return const Center(
-                                  child: Text(
-                                    "Somthing went wrong",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                              final loadedData = chatSnapshot.data!.docs;
-                              return Text(
-                                "${loadedData.length}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Container(
-                    height: 50,
-                    width: 750,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "No of diet plans :",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("diet-plans")
-                                .snapshots(),
-                            builder: (cxt, chatSnapshot) {
-                              if (chatSnapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: Text(
-                                    "Loading...",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (!chatSnapshot.hasData ||
-                                  chatSnapshot.data!.docs.isEmpty) {
-                                return const Center(
-                                  child: Text(
-                                    "No plans added",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                
-                              if (chatSnapshot.hasError) {
-                                return const Center(
-                                  child: Text(
-                                    "Somthing went wrong",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                );
-                              }
-                              final loadedData = chatSnapshot.data!.docs;
-                              return Text(
-                                "${loadedData.length}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Center(
-                child: Image.asset(
-                  'assets/logo.png',
-                  height: 100,
-                  width: 100,
-                ),
+                ],
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
 
-    if (currentTab == 0) {
-      currentScreen = const ContactUs();
-    }
-    if (currentTab == 2) {
-      currentScreen = const AdminProfile();
-    }
+    // if (currentTab == 0) {
+    //   currentScreen = const ContactUs();
+    // }
+    // if (currentTab == 2) {
+    //   currentScreen = const AdminProfile();
+    // }
     return Scaffold(
-      backgroundColor: Colors.black,
+      //   backgroundColor: Colors.black,
       body: currentScreen,
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: currentTab,
-        backgroundColor: const Color.fromARGB(255, 60, 60, 60),
-        selectedItemColor: const Color.fromARGB(255, 255, 94, 94),
-        unselectedItemColor: Colors.white,
-        onTap: (value) {
-          setState(() {
-            currentTab = value;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list, size: 30),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.admin_panel_settings_rounded, size: 35),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 30),
-            label: '123',
-          ),
-        ],
-      ),
+      //   bottomNavigationBar: BottomNavigationBar(
+      //     showSelectedLabels: false,
+      //     showUnselectedLabels: false,
+      //     currentIndex: currentTab,
+      //     backgroundColor: const Color.fromARGB(255, 60, 60, 60),
+      //     selectedItemColor: const Color.fromARGB(255, 255, 94, 94),
+      //     unselectedItemColor: Colors.white,
+      //     onTap: (value) {
+      //       setState(() {
+      //         currentTab = value;
+      //       });
+      //     },
+      //     items: const [
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.list, size: 30),
+      //         label: '123',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.admin_panel_settings_rounded, size: 35),
+      //         label: '123',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.person, size: 30),
+      //         label: '123',
+      //       ),
+      //     ],
+      //   ),
     );
   }
 }
