@@ -23,7 +23,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
         style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
       ),
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.pop(context);
       },
     );
     Widget continueButton = ElevatedButton(
@@ -36,7 +36,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
             .collection("schedules")
             .doc(schduleName)
             .delete();
-        Navigator.of(context).pop();
+        Navigator.pop(context);
       },
     );
     AlertDialog alert = AlertDialog(
@@ -138,6 +138,10 @@ class _ManageScheduleState extends State<ManageSchedule> {
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("schedules")
+                        .orderBy(
+                          "created-at",
+                          descending: true,
+                        )
                         .snapshots(),
                     builder: (cxt, chatSnapshot) {
                       if (chatSnapshot.connectionState ==
@@ -182,7 +186,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                           itemCount: loadedData.length,
                           itemBuilder: (context, index) {
                             final currentData = loadedData[index].data();
-
                             return Container(
                               margin: const EdgeInsets.only(bottom: 8),
                               height: 50,

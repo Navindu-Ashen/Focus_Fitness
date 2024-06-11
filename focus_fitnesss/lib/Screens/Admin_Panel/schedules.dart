@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/scheduleBlock.dart';
 
 class Schedules extends StatefulWidget {
   const Schedules({
@@ -19,59 +19,63 @@ class Schedules extends StatefulWidget {
 class _SchedulesState extends State<Schedules> {
   List<dynamic> exName1 = [];
   List<dynamic> exCount1 = [];
-  String calories = "";
+  List<dynamic> exName2 = [];
+  List<dynamic> exCount2 = [];
+  List<dynamic> exName3 = [];
+  List<dynamic> exCount3 = [];
+  var day1;
+  var day2;
+  var day3;
+  var caloriesDay1;
+  var caloriesDay2;
+  var caloriesDay3;
+  var _isGetScheduleData = false;
+  List<dynamic> dayCount = [];
+
+  void getScheduleData() async {
+    final userData = await FirebaseFirestore.instance
+        .collection("schedules")
+        .doc(widget.scheduleName)
+        .get();
+
+    dayCount = userData["available"];
+
+    setState(() {
+      _isGetScheduleData = true;
+    });
+  }
+
+  void testPrint() {
+    print(dayCount.length);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getScheduleData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+        title: Text(
+          "Schedule Details",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Container(
-                  color: const Color.fromARGB(255, 164, 162, 162),
-                  width: double.infinity,
-                  height: 75,
-                  child: Stack(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                        child: CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage("assets/p1.png"),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15, left: 110),
-                        child: Text(
-                          "Welcome to ADMIN PANEL",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 51, 49, 49),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30, left: 110),
-                        child: Text(
-                          widget.adminName,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
               Center(
                 child: Text(
                   widget.scheduleName,
@@ -87,125 +91,100 @@ class _SchedulesState extends State<Schedules> {
               const SizedBox(
                 height: 20,
               ),
-              StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('schedules')
-                    .doc(widget.scheduleName)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
+              if (_isGetScheduleData)
+                StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('schedules')
+                      .doc(widget.scheduleName)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    testPrint();
+                    final data = snapshot.data!.data() as Map<String, dynamic>;
+                    exName1 = data['ex_name_${dayCount[0]}'] as List<dynamic>;
+                    exCount1 = data['ex_count_${dayCount[0]}'] as List<dynamic>;
+                    day1 = data['day1-name'];
+                    caloriesDay1 = data['calories-day1'];
+                    if (dayCount.length == 2) {
+                      exName2 = data['ex_name_${dayCount[1]}'] as List<dynamic>;
+                      exCount2 =
+                          data['ex_count_${dayCount[1]}'] as List<dynamic>;
+                      day1 = data['day1-name'];
+                      day2 = data['day2-name'];
+                      caloriesDay1 = data['calories-day1'];
+                      caloriesDay2 = data['calories-day2'];
 
-                  final data = snapshot.data!.data() as Map<String, dynamic>;
-                  exName1 = data['ex_name_1'] as List<dynamic>;
-                  exCount1 = data['ex_sets_1'] as List<dynamic>;
-                  calories = data['calories'] as String;
-
-                  return Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            spreadRadius: 10,
-                            blurRadius: 12,
-                            blurStyle: BlurStyle.inner,
-                          )
-                        ]),
-                        height: 400,
-                        child: ListView.builder(
-                          reverse: false,
-                          itemCount: exName1.length,
-                          itemBuilder: (ctx, index) {
-                            return Container(
-                              height: 50,
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(
-                                  left: 16, right: 16, bottom: 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                color: Color.fromARGB(255, 60, 60, 60),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      exName1[index],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      exCount1[index],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                      print(
+                          "Done2......................$exName2,$caloriesDay1, $caloriesDay2, $exCount3, $exName3");
+                    } else if (dayCount.length == 3) {
+                      exName2 = data['ex_name_${dayCount[1]}'] as List<dynamic>;
+                      exCount2 =
+                          data['ex_count_${dayCount[1]}'] as List<dynamic>;
+                      exName3 = data['ex_name_${dayCount[2]}'] as List<dynamic>;
+                      exCount3 =
+                          data['ex_count_${dayCount[2]}'] as List<dynamic>;
+                      day1 = data['day1-name'];
+                      day2 = data['day2-name'];
+                      day3 = data['day3-name'];
+                      caloriesDay1 = data['calories-day1'];
+                      caloriesDay2 = data['calories-day2'];
+                      caloriesDay3 = data['calories-day3'];
+                      print("Done3......................");
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (exCount1 != [] && exName1 != [])
+                          for (int i = 0; i < exCount1.length; i++)
+                            ScheduleBlock(
+                                exCount: exCount1[i], exName: exName1[i]),
+                        const SizedBox(
+                          height: 16,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 5),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          color: Color.fromARGB(255, 60, 60, 60),
+                        if (caloriesDay1 != null)
+                          ScheduleBlock(
+                              exCount: caloriesDay1, exName: "Calories"),
+                        const SizedBox(
+                          height: 32,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                "Calories",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                calories,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
+                        if (exCount2 != [] && exName2 != [])
+                          for (int i = 0; i < exCount2.length; i++)
+                            ScheduleBlock(
+                                exCount: exCount2[i], exName: exName2[i]),
+                        const SizedBox(
+                          height: 16,
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        if (caloriesDay2 != null)
+                          ScheduleBlock(
+                              exCount: caloriesDay2, exName: "Calories"),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        if (exCount3 != [] && exName3 != [])
+                          for (int i = 0; i < exCount3.length; i++)
+                            ScheduleBlock(
+                                exCount: exCount3[i], exName: exName3[i]),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        if (caloriesDay3 != null)
+                          ScheduleBlock(
+                              exCount: caloriesDay3, exName: "Calories")
+                      ],
+                    );
+                  },
+                ),
+              if (!_isGetScheduleData)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: LinearProgressIndicator(
+                      color: const Color.fromARGB(255, 255, 94, 94),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

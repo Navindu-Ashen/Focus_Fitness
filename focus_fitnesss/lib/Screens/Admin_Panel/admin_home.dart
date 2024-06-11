@@ -6,6 +6,7 @@ import 'package:focus_fitnesss/Screens/Admin_Panel/contact_us.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_diet_plan.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_schedules.dart';
 import 'package:focus_fitnesss/Screens/Admin_Panel/manage_users.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/adminHeader.dart';
 
 class AdminMain extends StatefulWidget {
   const AdminMain({super.key});
@@ -53,42 +54,7 @@ class _AdminMainState extends State<AdminMain> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: const Color.fromARGB(255, 164, 162, 162),
-                width: double.infinity,
-                height: 75,
-                child: Stack(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30, bottom: 5),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: AssetImage("assets/p1.png"),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, left: 110),
-                      child: Text(
-                        "Welcome to ADMIN PANEL",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 51, 49, 49),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 110),
-                      child: Text(
-                        adminName,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              AdminHeader(adminName: adminName),
               const SizedBox(
                 height: 40,
               ),
@@ -182,7 +148,9 @@ class _AdminMainState extends State<AdminMain> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ManageDietPlan(adminName: adminName,)),
+                                builder: (context) => ManageDietPlan(
+                                      adminName: adminName,
+                                    )),
                           );
                         },
                         style: ElevatedButton.styleFrom(
