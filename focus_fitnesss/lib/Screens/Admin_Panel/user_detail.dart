@@ -220,6 +220,76 @@ class _UserDetailPageState extends State<UserDetailPage> {
     }
   }
 
+  void deleteAlert(BuildContext context) {
+    Widget cancelButton = TextButton(
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 255, 94, 94),
+          foregroundColor: Color.fromARGB(255, 255, 255, 255)),
+      child: Text("Remove"),
+      onPressed: () {},
+    );
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      title: Text(
+        "Remove member!",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      content: SizedBox(
+        height: 120,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Are you sure to remove this member?",
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                "NOTE:",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 255, 94, 94),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "This member will unable to log with this email further",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -486,7 +556,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 height: 16,
               ),
               Center(
-                // ignore: sized_box_for_whitespace
                 child: Container(
                   height: 40,
                   width: 350,
@@ -630,7 +699,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   width: 350,
                   child: ElevatedButton(
                     onPressed: () {
-                      deleteUser(widget.userUid);
+                      deleteAlert(context);
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

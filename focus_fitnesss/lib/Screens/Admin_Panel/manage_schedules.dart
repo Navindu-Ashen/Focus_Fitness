@@ -97,9 +97,10 @@ class _ManageScheduleState extends State<ManageSchedule> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AddSchedule()),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => AddManageSchedule(),
+                ),
               );
             },
             icon: Icon(Icons.add_circle_outline_rounded),
@@ -115,9 +116,13 @@ class _ManageScheduleState extends State<ManageSchedule> {
             children: [
               Column(
                 children: [
-                  const SizedBox(height: 16,),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
                     width: double.infinity,
                     child: TextField(
                       style: TextStyle(color: Colors.white),
