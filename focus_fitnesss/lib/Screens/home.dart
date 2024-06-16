@@ -4,7 +4,9 @@ import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
 import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/bmiPage.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeCard2.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/homeRow2.dart';
 import 'package:focus_fitnesss/widgets/headerBar.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeBanner.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/homeRow.dart';
@@ -142,12 +144,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+
             const SizedBox(
+              height: 15,
+            ),
+            HomeRow2(),
+              const SizedBox(
               height: 50,
             ),
             Center(
               child: SizedBox(
-                width: 150,
+                width: 120,
                 child: Image.asset("assets/logo.png"),
               ),
             ),

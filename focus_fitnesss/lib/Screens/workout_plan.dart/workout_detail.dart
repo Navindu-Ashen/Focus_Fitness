@@ -61,15 +61,15 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                            color: Color.fromARGB(255, 167, 167, 167),
+                            color: Color.fromARGB(255, 79, 79, 79),
                             offset: Offset(0, -5),
                             blurRadius: 12,
                             spreadRadius: 1)
                       ],
                       gradient: const LinearGradient(
                         colors: [
-                          Color.fromARGB(255, 238, 128, 128),
-                          Color.fromARGB(255, 255, 94, 94),
+                          Color.fromARGB(255, 252, 92, 92),
+                          Color.fromARGB(255, 116, 14, 14),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -88,15 +88,15 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               "Workout Plan",
                               style: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
                             ),
                             Text(
                               widget.wp.title,
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: Colors.black,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -106,19 +106,19 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                             Text(
                               widget.wp.description,
                               style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                                  color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 40),
                             const Text(
                               "STEPS :",
                               style: TextStyle(
                                   fontSize: 17,
                                   letterSpacing: 1,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 10),
@@ -127,7 +127,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               style: const TextStyle(
                                   fontSize: 17.8,
                                   fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                                  color: Colors.white),
                               textAlign: TextAlign.left,
                             ),
                             const SizedBox(height: 10),

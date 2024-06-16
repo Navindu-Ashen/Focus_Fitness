@@ -68,8 +68,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 ],
                 gradient: const LinearGradient(
                   colors: [
-                    Color.fromARGB(255, 238, 128, 128),
-                    Color.fromARGB(255, 255, 94, 94),
+                    Color.fromARGB(255, 252, 92, 92),
+                    Color.fromARGB(255, 116, 14, 14),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

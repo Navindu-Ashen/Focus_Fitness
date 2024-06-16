@@ -43,7 +43,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                       Icons.arrow_back_ios,
                     ),
                     iconSize: 30,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Colors.white,
                   ),
                 ],
               ),
@@ -99,8 +99,8 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                               "Diet Plan",
                               style: TextStyle(
                                   fontSize: 17,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontWeight: FontWeight.w500),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               height: 16,
@@ -120,7 +120,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                             Text(
                               widget.description,
                               style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.w500,
                                   color: Color.fromARGB(255, 255, 255, 255)),
                               textAlign: TextAlign.center,

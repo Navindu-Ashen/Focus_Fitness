@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/each_workout.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class TodayActivity extends StatefulWidget {
@@ -26,6 +27,27 @@ class _TodayActivityState extends State<TodayActivity> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text(
+          "Today's Schedule",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1.5,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
+          iconSize: 25,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -45,53 +67,51 @@ class _TodayActivityState extends State<TodayActivity> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 16,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'Action is the key to',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
                           ),
-                          Text(
-                            'Action is the key to',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            'ALL SUCCESS',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 255, 69, 70),
-                                letterSpacing: 1.2),
-                          ),
-                          Text(
-                            'Your Workout',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 60, 60, 60),
-                                letterSpacing: 1.5),
-                          ),
-                          Text(
-                            widget.workoutName,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                letterSpacing: 1.5),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          'ALL SUCCESS',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 255, 69, 70),
+                              letterSpacing: 1.2),
+                        ),
+                        Text(
+                          'Your Workout',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 60, 60, 60),
+                              letterSpacing: 1.5),
+                        ),
+                        Text(
+                          widget.workoutName,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              letterSpacing: 1.5),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -219,36 +239,45 @@ class _TodayActivityState extends State<TodayActivity> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
-                      child: Container(
-                        height: 50,
-                        width: 300,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                      child: GestureDetector(
+                        onTap: () {
+                           Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EachWorkout()),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 300,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: Color.fromARGB(255, 60, 60, 60),
                           ),
-                          color: Color.fromARGB(255, 60, 60, 60),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.exersiceNames[index],
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                widget.exersiceCounts[index],
-                                style: const TextStyle(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.exersiceNames[index],
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  widget.exersiceCounts[index],
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
