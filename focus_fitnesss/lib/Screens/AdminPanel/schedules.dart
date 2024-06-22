@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/widgets/AdminScreen/scheduleBlock.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/schedule_block.dart';
 
 class Schedules extends StatefulWidget {
   const Schedules({

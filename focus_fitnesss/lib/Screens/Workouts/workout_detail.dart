@@ -35,41 +35,34 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                     iconSize: 30,
                     color: Colors.white,
                   ),
+                  Image.asset(
+                  'assets/logo.png',
+                  height: 60,
+                  width: 60,
+                ),
                 ],
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 330),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/logo.png',
-                        height: 60,
-                        width: 60,
-                      )
-                    ],
-                  ),
-                ),
+                
                 const SizedBox(
-                  height: 250,
+                  height: 350,
                 ),
                 Expanded(
                   child: Container(
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                            color: Color.fromARGB(255, 79, 79, 79),
-                            offset: Offset(0, -5),
-                            blurRadius: 12,
-                            spreadRadius: 1)
+                            color: Color.fromARGB(155, 0, 0, 0),
+                            offset: Offset(0, -2),
+                            blurRadius: 3,)
                       ],
                       gradient: const LinearGradient(
                         colors: [
-                          Color.fromARGB(255, 252, 92, 92),
-                          Color.fromARGB(255, 116, 14, 14),
+                          Color.fromARGB(255, 65, 62, 62),
+                          Color.fromARGB(255, 24, 23, 23)
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -96,7 +89,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
-                                color: Colors.black,
+                                color: Color.fromARGB(255, 246, 65, 63),
                               ),
                               textAlign: TextAlign.center,
                             ),

@@ -4,7 +4,7 @@ import 'package:focus_fitnesss/Data/recipes.dart';
 import 'package:focus_fitnesss/Models/recipes.dart';
 // ignore: unused_import
 import 'package:focus_fitnesss/Screens/home.dart';
-import 'package:focus_fitnesss/Screens/recipes/recipe_detail.dart';
+import 'package:focus_fitnesss/Screens/Recipes/recipe_detail.dart';
 
 class RecipePage extends StatefulWidget {
   const RecipePage({super.key});

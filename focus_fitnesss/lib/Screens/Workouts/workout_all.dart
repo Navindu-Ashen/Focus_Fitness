@@ -3,7 +3,7 @@ import 'package:focus_fitnesss/Data/workout.dart';
 import 'package:focus_fitnesss/Models/workout.dart';
 // ignore: unused_import
 import 'package:focus_fitnesss/Screens/home.dart';
-import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_detail.dart';
+import 'package:focus_fitnesss/Screens/Workouts/workout_detail.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -68,8 +68,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 ],
                 gradient: const LinearGradient(
                   colors: [
-                    Color.fromARGB(255, 252, 92, 92),
-                    Color.fromARGB(255, 116, 14, 14),
+                    Color.fromARGB(255, 65, 62, 62),
+                          Color.fromARGB(255, 24, 23, 23)
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

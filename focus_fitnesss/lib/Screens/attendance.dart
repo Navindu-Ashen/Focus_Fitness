@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:focus_fitnesss/Screens/attendanceList.dart';
+import 'package:focus_fitnesss/Screens/attendance_list.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class AttendanceScreen extends StatefulWidget {

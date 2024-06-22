@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
-import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
-import 'package:focus_fitnesss/Screens/workout_plan.dart/workout_all.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/bmiPage.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/homeCard2.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/homeRow2.dart';
-import 'package:focus_fitnesss/widgets/headerBar.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/homeBanner.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/homeRow.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/todaysSchedule.dart';
+import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
+import 'package:focus_fitnesss/Screens/Workouts/workout_all.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/bmi.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/home_card2.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/home_row2.dart';
+import 'package:focus_fitnesss/widgets/header_bar.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/home_banner.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/home_row.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/todays_schedule.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -41,7 +41,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 1;
   Widget? currentContent;
-  final String testSchedule = "level2";
   var dayName = "";
   bool _isSchduleData = false;
 
@@ -58,9 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final String dietPlanCardImgPath = "assets/g6.png";
 
   void getScheduleData() async {
+    print(widget.schedule);
     final userData = await FirebaseFirestore.instance
         .collection("schedules")
-        .doc(testSchedule)
+        .doc(widget.schedule)
         .get();
     if (!_isSchduleData) {
       setState(() {

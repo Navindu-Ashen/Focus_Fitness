@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/bmiPage.dart';
+import 'package:focus_fitnesss/widgets/HomeScreen/bmi.dart';
 
 class HomeRow2 extends StatelessWidget {
   const HomeRow2({super.key});

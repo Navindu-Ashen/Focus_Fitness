@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Screens/Admin_Panel/admin_home.dart';
-import 'package:focus_fitnesss/Screens/checkAuth.dart';
+import 'package:flutter/services.dart';
+import 'package:focus_fitnesss/Screens/AdminPanel/admin_home.dart';
+import 'package:focus_fitnesss/Screens/check_auth.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 // ignore: unused_import
-import 'package:focus_fitnesss/Screens/recipes/recipe_all.dart';
+import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,7 +14,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then(
+    (value) {
+      runApp(
+        MyApp(),
+      );
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

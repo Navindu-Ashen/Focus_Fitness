@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Screens/Admin_Panel/user_detail.dart';
+import 'package:focus_fitnesss/Screens/AdminPanel/user_detail.dart';
 
 class ManageUsers extends StatefulWidget {
   const ManageUsers({

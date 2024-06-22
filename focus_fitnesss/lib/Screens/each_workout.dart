@@ -54,26 +54,20 @@ class _EachWorkoutState extends State<EachWorkout> {
                     iconSize: 30,
                     color: Colors.white,
                   ),
+                  Image.asset(
+                  'assets/logo.png',
+                  height: 60,
+                  width: 60,
+                ),
                 ],
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 330),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/logo.png',
-                        height: 60,
-                        width: 60,
-                      )
-                    ],
-                  ),
-                ),
+                
                 const SizedBox(
-                  height: 250,
+                  height: 350,
                 ),
                 Expanded(
                   child: Container(
@@ -99,10 +93,11 @@ class _EachWorkoutState extends State<EachWorkout> {
                     ),
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(top: 20, left: 30, right: 30),
+                          const EdgeInsets.symmetric(horizontal: 30),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            const SizedBox(height: 16,),
                             const Text(
                               "More about",
                               style: TextStyle(
@@ -113,28 +108,28 @@ class _EachWorkoutState extends State<EachWorkout> {
                             Text(
                               "Squats",
                               style: const TextStyle(
-                                fontSize: 32,
+                                fontSize: 36,
                                 fontWeight: FontWeight.w900,
-                                color: const Color.fromARGB(255, 255, 94, 94),
+                                color: const Color.fromARGB(255, 246, 65, 63),
                               ),
                               textAlign: TextAlign.center,
                             ),
                             Text(
                               "How to Squat: The Guide to the Perfect Squat",
                               style: const TextStyle(
-                                fontSize: 16.5,
-                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 60, 60, 60),
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 25),
+                            const SizedBox(height: 16),
                             const Text(
                               "The squat is a fundamental movement pattern that requires multiple joint and muscle integration. Babies squat perfectly. And then we unlearn this in favor of bending over.",
                               style: TextStyle(
-                                  fontSize: 17.5,
+                                  fontSize: 18,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 30),
@@ -161,9 +156,9 @@ class _EachWorkoutState extends State<EachWorkout> {
                                       isExpanded: true,
                                       colors: const ProgressBarColors(
                                         playedColor: const Color.fromARGB(
-                                            255, 255, 94, 94),
+                                            255, 246, 65, 63),
                                         handleColor: const Color.fromARGB(
-                                            255, 255, 94, 94),
+                                            255, 246, 65, 63),
                                       ),
                                     ),
 
@@ -214,6 +209,7 @@ class _EachWorkoutState extends State<EachWorkout> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 16,)
                           ],
                         ),
                       ),

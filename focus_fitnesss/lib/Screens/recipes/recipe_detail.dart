@@ -72,10 +72,9 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.black,
-                            offset: Offset(0, -5),
-                            blurRadius: 8,
-                            spreadRadius: 2)
+                            color: Color.fromARGB(155, 0, 0, 0),
+                            offset: Offset(0, -2),
+                            blurRadius: 3,)
                       ],
                       gradient: const LinearGradient(
                         colors: [
@@ -111,7 +110,7 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w900,
-                                color: Color.fromARGB(255, 255, 94, 94),
+                                color: Color.fromARGB(255, 246, 65, 63),
                               ),
                             ),
                             const SizedBox(

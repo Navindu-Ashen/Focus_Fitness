@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/Screens/Admin_Panel/add_diet_plan.dart';
+import 'package:focus_fitnesss/Screens/AdminPanel/add_diet_plan.dart';
 
 class ManageDietPlan extends StatefulWidget {
   const ManageDietPlan({super.key, required this.adminName});
@@ -15,6 +15,7 @@ class ManageDietPlan extends StatefulWidget {
 class _ManageDietPlanState extends State<ManageDietPlan> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width; 
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -187,16 +188,19 @@ class _ManageDietPlanState extends State<ManageDietPlan> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
+                                      padding: const EdgeInsets.only(left: 16),
                                       child: GestureDetector(
                                         onTap: () {},
-                                        child: Text(
-                                          currentData["name"],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400),
+                                        child: SizedBox(
+                                          width: screenWidth-100,
+                                          child: Text(
+                                            currentData["name"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400),
+                                          ),
                                         ),
                                       ),
                                     ),

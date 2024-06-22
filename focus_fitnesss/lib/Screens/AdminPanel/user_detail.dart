@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_fitnesss/widgets/AdminScreen/adminHeader.dart';
-import 'package:focus_fitnesss/widgets/AdminScreen/dataField.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/admin_header.dart';
+import 'package:focus_fitnesss/widgets/AdminScreen/data_field.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd();
@@ -235,7 +235,13 @@ class _UserDetailPageState extends State<UserDetailPage> {
           backgroundColor: Color.fromARGB(255, 255, 94, 94),
           foregroundColor: Color.fromARGB(255, 255, 255, 255)),
       child: Text("Remove"),
-      onPressed: () {},
+      onPressed: () async {
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(widget.userUid)
+            .delete();
+        Navigator.pop(context);
+      },
     );
     AlertDialog alert = AlertDialog(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
