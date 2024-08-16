@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .collection("schedules")
         .doc(widget.schedule)
         .get();
-    if (!_isSchduleData) {
+    if (!_isSchduleData) {  
       setState(() {
         dayName = userData["${widget.currentDay}-name"];
         calories = userData["calories-${widget.currentDay}"];

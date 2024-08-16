@@ -23,11 +23,15 @@ class _SignupPageState extends State<SignupPage> {
   var enteredContactNumber = "";
   var enteredPassword = "";
   var enteredConfirmPassword = "";
+  double enteredWeight = 0.0;
+  double enteredHeight = 0.0;
   File? _selectedImage;
   var _isAuthenticating = false;
   var errorMsg = "";
   bool isObsecured = true;
   bool isObsecured2 = true;
+  String? selectedGender;
+  List<String> genderList = ["Male", "Female"];
 
   void _submit() async {
     DateTime now = DateTime.now();
@@ -38,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
     if (!isValid) {
       return;
     }
-    print("Validation Done...............................");
+    print("Validation Done 1...............................");
 
     if (_selectedImage == null) {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -57,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
     _form.currentState!.save();
     FocusScope.of(context).unfocus();
 
-    print("Validation Done...............................");
+    print("Validation Done 2...............................");
 
     try {
       final userCredentials = await _firebase.createUserWithEmailAndPassword(
@@ -85,6 +89,9 @@ class _SignupPageState extends State<SignupPage> {
         "attendance": [],
         "created-at": formattedDate,
         "currentDay": "",
+        "height": enteredHeight,
+        "weight": enteredWeight,
+        "gender": selectedGender,
       });
 
       _form.currentState!.reset();
@@ -232,6 +239,7 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 8),
                               // ignore: sized_box_for_whitespace
                               TextFormField(
+                                keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   height: 1,
@@ -263,6 +271,7 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 8),
                               // ignore: sized_box_for_whitespace
                               TextFormField(
+                                keyboardType: TextInputType.phone,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   height: 1,
@@ -292,7 +301,146 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              // ignore: sized_box_for_whitespace
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: size.width / 2.4,
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        height: 1,
+                                      ),
+                                      decoration: InputDecoration(
+                                        labelText: "Weight (Kg)",
+                                        labelStyle: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 172, 172, 172),
+                                          fontSize: 14,
+                                        ),
+                                        fillColor: const Color(0xFF2A2A2A),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        filled: true,
+                                      ),
+                                      onSaved: (value) {
+                                        enteredWeight = double.parse(value!);
+                                      },
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.trim().isEmpty) {
+                                          return "Enter weight";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width / 2.4,
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        height: 1,
+                                      ),
+                                      decoration: InputDecoration(
+                                        labelText: "Height (in)",
+                                        labelStyle: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 172, 172, 172),
+                                          fontSize: 14,
+                                        ),
+                                        fillColor: const Color(0xFF2A2A2A),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        filled: true,
+                                      ),
+                                      onSaved: (value) {
+                                        enteredHeight = double.parse(value!);
+                                      },
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.trim().isEmpty) {
+                                          return "Enter height";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF2A2A2A),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      errorStyle: TextStyle(
+                                          color: Colors.white, fontSize: 10),
+                                    ),
+                                    value: selectedGender,
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 255, 0, 0),
+                                    ),
+                                    dropdownColor:
+                                        Color.fromARGB(255, 60, 60, 60),
+                                    borderRadius: BorderRadius.circular(10),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        selectedGender = newValue;
+                                      });
+                                    },
+                                    items: genderList
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Center(
+                                          child: Text(
+                                            value,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    hint: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Text(
+                                        "Select gender",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color.fromARGB(
+                                              255, 172, 172, 172),
+                                        ),
+                                      ),
+                                    ),
+                                    onSaved: (value) {
+                                      selectedGender = value;
+                                    },
+                                    validator: (value) {
+                                      if (selectedGender == null) {
+                                        return "  Select gender";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
                               TextFormField(
                                 style: const TextStyle(
                                   color: Colors.white,

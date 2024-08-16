@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 final firestoreInstance = FirebaseFirestore.instance;
-
+                          
 class UserDetailPage extends StatefulWidget {
   const UserDetailPage({
     super.key,

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 255, 255, 255),
+          seedColor: Color.fromARGB(255, 0, 0, 0),
         ),
         useMaterial3: true,
       ),
