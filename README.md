@@ -20,13 +20,13 @@ This Gym Management App is a mobile application developed using Flutter and Fire
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/gym-management-app.git
+   git clone https://github.com/Navindu-Ashen/Focus_Fitness.git
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd gym-management-app
+   cd Focus_Fitness
    ```
 
 3. Install dependencies:
