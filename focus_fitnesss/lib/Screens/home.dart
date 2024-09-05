@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .collection("schedules")
         .doc(widget.schedule)
         .get();
-    if (!_isSchduleData) {  
+    if (!_isSchduleData) {
       setState(() {
         dayName = userData["${widget.currentDay}-name"];
         calories = userData["calories-${widget.currentDay}"];
@@ -83,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
     currentContent = SafeArea(
       child: SingleChildScrollView(
         child: Column(
+          
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
@@ -96,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   schedule: widget.schedule,
                   username: widget.username),
             ),
+            //FloatingActionButton(child: Icon(Icons.add),onPressed: (){}),
             HomePageBanner(
               gymDay: dayName,
             ),
@@ -126,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+            
             const SizedBox(
               height: 20,
             ),
@@ -144,12 +149,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-
+             
             const SizedBox(
               height: 15,
             ),
             HomeRow2(),
-              const SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Center(
@@ -161,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 50,
             ),
+            
           ],
         ),
       ),

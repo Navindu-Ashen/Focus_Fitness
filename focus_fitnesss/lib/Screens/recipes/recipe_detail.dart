@@ -72,9 +72,10 @@ class _RecipeDetail2State extends State<RecipeDetail2> {
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                            color: Color.fromARGB(155, 0, 0, 0),
-                            offset: Offset(0, -2),
-                            blurRadius: 3,)
+                          color: Color.fromARGB(155, 0, 0, 0),
+                          offset: Offset(0, -2),
+                          blurRadius: 3,
+                        )
                       ],
                       gradient: const LinearGradient(
                         colors: [
