@@ -1,15 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/admin_home.dart';
 import 'package:focus_fitnesss/Screens/check_auth.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 // ignore: unused_import
 import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
+import 'package:focus_fitnesss/const.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

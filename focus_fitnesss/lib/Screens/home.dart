@@ -1,7 +1,7 @@
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/AI_bot.dart';
 import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
@@ -85,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
     currentContent = SafeArea(
       child: SingleChildScrollView(
         child: Column(
-          
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
@@ -99,7 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   schedule: widget.schedule,
                   username: widget.username),
             ),
-            //FloatingActionButton(child: Icon(Icons.add),onPressed: (){}),
             HomePageBanner(
               gymDay: dayName,
             ),
@@ -130,7 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-            
             const SizedBox(
               height: 20,
             ),
@@ -149,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-             
             const SizedBox(
               height: 15,
             ),
@@ -166,7 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 50,
             ),
-            
           ],
         ),
       ),
@@ -186,33 +181,44 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: currentContent,
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: currentTab,
+    backgroundColor: Colors.black,
+    body: Stack(
+      children: [
+        currentContent!,
+        if (currentTab == 1)
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: FloatingActionButton(
+              backgroundColor: Color.fromARGB(255, 218, 234, 72),
+              child: Icon(Icons.smart_toy,color: Colors.black,),
+              onPressed: () {
+               Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => GymBot(),
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
+    ),
+      bottomNavigationBar: ConvexAppBar(
         backgroundColor: const Color.fromARGB(255, 60, 60, 60),
-        selectedItemColor: const Color.fromARGB(255, 255, 94, 94),
-        unselectedItemColor: Colors.white,
-        onTap: (value) {
+        activeColor: const Color.fromARGB(255, 255, 94, 94),
+        height: 55,
+        elevation: 3,
+        shadowColor: Colors.black87,
+        color: Colors.white,
+        onTap: (int index) {
           setState(() {
-            currentTab = value;
+            currentTab = index;
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list, size: 30),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled, size: 35),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 30),
-            label: '123',
-          ),
+          TabItem(icon: Icons.list, title: 'Attendence'),
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.people, title: 'Profile'),
         ],
       ),
     );
