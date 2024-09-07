@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/admin_profile.dart';
@@ -6,6 +7,8 @@ import 'package:focus_fitnesss/Screens/AdminPanel/contact_us.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_diet_plan.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_schedules.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_users.dart';
+import 'package:focus_fitnesss/Screens/generate_code.dart';
+import 'package:focus_fitnesss/Screens/scan_code_page.dart';
 import 'package:focus_fitnesss/widgets/AdminScreen/admin_header.dart';
 
 class AdminMain extends StatefulWidget {
@@ -435,13 +438,13 @@ class _AdminMainState extends State<AdminMain> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               Center(
                 child: Image.asset(
                   'assets/logo.png',
-                  height: 150,
-                  width: 150,
+                  height: 120,
+                  width: 120,
                 ),
               ),
             ],
@@ -458,32 +461,49 @@ class _AdminMainState extends State<AdminMain> {
     }
     return Scaffold(
       backgroundColor: Colors.black,
-      body: currentScreen,
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: currentTab,
+      body: Stack(
+        children: [
+          currentScreen!,
+          if (currentTab == 1)
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: FloatingActionButton(
+                backgroundColor: const Color.fromARGB(255, 254, 94, 94),
+                child: Icon(
+                  Icons.qr_code_scanner,
+                  color: Colors.white,
+                  size: 35,
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => ScanCode(),
+                    ),
+                  );
+                },
+              ),
+            ),
+        ],
+      ),
+      bottomNavigationBar: ConvexAppBar(
         backgroundColor: const Color.fromARGB(255, 60, 60, 60),
-        selectedItemColor: const Color.fromARGB(255, 255, 94, 94),
-        unselectedItemColor: Colors.white,
-        onTap: (value) {
+        activeColor: const Color.fromARGB(255, 255, 94, 94),
+        height: 55,
+        elevation: 3,
+        shadowColor: Colors.black87,
+        color: Colors.white,
+        onTap: (int index) {
           setState(() {
-            currentTab = value;
+            currentTab = index;
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list, size: 30),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.admin_panel_settings_rounded, size: 35),
-            label: '123',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 30),
-            label: '123',
-          ),
+          TabItem(icon: Icons.list, title: 'Contact Dev'),
+          TabItem(
+              icon: Icons.admin_panel_settings_rounded,
+              title: 'Manage Members'),
+          TabItem(icon: Icons.person, title: 'Profile'),
         ],
       ),
     );

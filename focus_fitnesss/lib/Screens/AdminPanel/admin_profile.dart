@@ -241,8 +241,8 @@ class _AdminProfileState extends State<AdminProfile> {
                 Center(
                   child: Image.asset(
                     'assets/logo.png',
-                    height: 130,
-                    width: 130,
+                    height: 120,
+                    width: 120,
                   ),
                 ),
               ],

@@ -181,28 +181,31 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-    backgroundColor: Colors.black,
-    body: Stack(
-      children: [
-        currentContent!,
-        if (currentTab == 1)
-          Positioned(
-            bottom: 16,
-            right: 16,
-            child: FloatingActionButton(
-              backgroundColor: Color.fromARGB(255, 218, 234, 72),
-              child: Icon(Icons.smart_toy,color: Colors.black,),
-              onPressed: () {
-               Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => GymBot(),
-                  ),
-                );
-              },
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          currentContent!,
+          if (currentTab == 1)
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: FloatingActionButton(
+                backgroundColor: Color.fromARGB(255, 218, 234, 72),
+                child: Icon(
+                  Icons.smart_toy,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => GymBot(),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-      ],
-    ),
+        ],
+      ),
       bottomNavigationBar: ConvexAppBar(
         backgroundColor: const Color.fromARGB(255, 60, 60, 60),
         activeColor: const Color.fromARGB(255, 255, 94, 94),
@@ -218,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           TabItem(icon: Icons.list, title: 'Attendence'),
           TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.people, title: 'Profile'),
+          TabItem(icon: Icons.person, title: 'Profile'),
         ],
       ),
     );

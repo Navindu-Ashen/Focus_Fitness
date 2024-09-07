@@ -16,6 +16,8 @@ class _GymBotState extends State<GymBot> {
   final Gemini gemini = Gemini.instance;
 
   List<ChatMessage> messages = [];
+  bool isQuestionClicked = false;
+  String selectedQuestion = '';
 
   ChatUser currentuser = ChatUser(id: '0', firstName: 'User');
   ChatUser geminiuser = ChatUser(
@@ -56,56 +58,108 @@ class _GymBotState extends State<GymBot> {
   }
 
   Widget _buildUI() {
-    return DashChat(
-      inputOptions: InputOptions(
-        trailing: [
-          IconButton(
-            onPressed: _sendMediaMessage,
-            icon: const Icon(
-              Icons.image,
-              color: const Color.fromARGB(255, 255, 94, 94),
+    return Column(
+      children: [
+        if (!isQuestionClicked)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              alignment: WrapAlignment.center,
+              children: [
+                _buildQuestionButton("What are some good chest exercises ?"),
+                _buildQuestionButton("How often should I work out ?"),
+                _buildQuestionButton("What is the best diet for muscle gain ?"),
+                _buildQuestionButton(
+                    "Can I do cardio and strength training together ?"),
+              ],
             ),
           ),
-        ],
-        inputDecoration: InputDecoration(
-          fillColor: Color.fromARGB(255, 118, 118, 118),
-          filled: true,
-          hintText: "Ask from GymBot",
-          hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 219, 219, 219),
-              fontWeight: FontWeight.w600),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(
-              color: const Color.fromARGB(255, 255, 94, 94),
+        Expanded(
+          child: DashChat(
+            inputOptions: InputOptions(
+              trailing: [
+                IconButton(
+                  onPressed: _sendMediaMessage,
+                  icon: const Icon(
+                    Icons.image,
+                    color: Color.fromARGB(255, 255, 94, 94),
+                  ),
+                ),
+              ],
+              inputDecoration: InputDecoration(
+                fillColor: Color.fromARGB(255, 118, 118, 118),
+                filled: true,
+                hintText: "Ask from GymBot",
+                hintStyle: const TextStyle(
+                    color: Color.fromARGB(255, 219, 219, 219),
+                    fontWeight: FontWeight.w600),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 255, 94, 94),
+                  ),
+                ),
+              ),
+              inputTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+              ),
+              cursorStyle: CursorStyle(
+                color: Color.fromARGB(255, 255, 94, 94),
+              ),
+              sendButtonBuilder: (sendMessage) {
+                return IconButton(
+                  onPressed: sendMessage,
+                  icon: const Icon(
+                    Icons.send,
+                    color: Color.fromARGB(255, 255, 94, 94),
+                  ),
+                );
+              },
+            ),
+            currentUser: currentuser,
+            onSend: _sendText,
+            messages: messages,
+            messageOptions: MessageOptions(
+              currentUserContainerColor: const Color.fromARGB(255, 255, 94, 94),
+              containerColor: const Color(0xFF353535),
+              textColor: Colors.white,
+              currentUserTextColor: Colors.white,
             ),
           ),
         ),
-        inputTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 17,
+      ],
+    );
+  }
+
+  Widget _buildQuestionButton(String question) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          isQuestionClicked = true;
+          selectedQuestion = question;
+        });
+        ChatMessage chatMessage = ChatMessage(
+          user: currentuser,
+          createdAt: DateTime.now(),
+          text: question,
+        );
+        _sendText(chatMessage);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isQuestionClicked && selectedQuestion == question
+            ? Colors.grey
+            : Color.fromARGB(255, 79, 79, 79),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
-        cursorStyle: CursorStyle(
-          color: Color.fromARGB(255, 255, 94, 94),
-        ),
-        sendButtonBuilder: (sendMessage) {
-          return IconButton(
-            onPressed: sendMessage,
-            icon: const Icon(
-              Icons.send,
-              color: const Color.fromARGB(255, 255, 94, 94),
-            ),
-          );
-        },
       ),
-      currentUser: currentuser,
-      onSend: _sendText,
-      messages: messages,
-      messageOptions: MessageOptions(
-        currentUserContainerColor: const Color.fromARGB(255, 255, 94, 94),
-        containerColor: const Color(0xFF353535),
-        textColor: Colors.white,
-        currentUserTextColor: Colors.white,
+      child: Text(
+        question,
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/generate_code.dart';
 import 'package:focus_fitnesss/widgets/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -525,7 +526,38 @@ class _SignupPageState extends State<SignupPage> {
                                   return null;
                                 },
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                      "Generate your QR code from here :  ",
+                                      style: TextStyle(
+                                        color: const Color(0xFF2A2A2A),
+                                        decoration: TextDecoration.none,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  FloatingActionButton(
+                                    backgroundColor:
+                                         Color.fromARGB(255, 37, 37, 37),
+                                    child: Icon(
+                                      Icons.qr_code_2,
+                                      color: Color.fromARGB(255, 172, 172, 172),
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (ctx) => GenerateCode(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 25),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

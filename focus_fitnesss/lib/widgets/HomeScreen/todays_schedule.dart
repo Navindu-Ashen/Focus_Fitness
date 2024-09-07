@@ -29,9 +29,9 @@ class _TodaysSdcheduleState extends State<TodaysSdchedule> {
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 5, right: 16),
           child: const Text(
-            "Today's schedule",
+            "Today's Schedule",
             style: TextStyle(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
           ),
         ),
         const SizedBox(
