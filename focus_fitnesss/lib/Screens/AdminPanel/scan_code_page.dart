@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:focus_fitnesss/Screens/AdminPanel/attendance_confirm.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanCode extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ScanCodeState extends State<ScanCode> {
           icon: const Icon(
             Icons.arrow_back_ios,
           ),
-          iconSize: 25,
+          iconSize: 20,
           color: Colors.white,
         ),
       ),
@@ -41,18 +42,25 @@ class _ScanCodeState extends State<ScanCode> {
             print('Barcode found! ${barcode.rawValue}');
           }
           if (image != null) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(
-                      barcodes.first.rawValue ?? "",
-                    ),
-                    content: Image(
-                      image: MemoryImage(image),
-                    ),
-                  );
-                });
+            // showDialog(
+            //     context: context,
+            //     builder: (context) {
+            //       return AlertDialog(
+            //         title: Text(
+            //           barcodes.first.rawValue ?? "",
+            //         ),
+            //         content: Image(
+            //           image: MemoryImage(image),
+            //         ),
+            //       );
+            //     });
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => ConfirmAttendance(
+                  qrData: barcodes.first.rawValue ?? "",
+                ),
+              ),
+            );
           }
         },
       ),

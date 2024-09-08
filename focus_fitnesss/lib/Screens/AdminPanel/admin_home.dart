@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/admin_profile.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/contact_us.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_diet_plan.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_schedules.dart';
 import 'package:focus_fitnesss/Screens/AdminPanel/manage_users.dart';
-import 'package:focus_fitnesss/Screens/generate_code.dart';
-import 'package:focus_fitnesss/Screens/scan_code_page.dart';
+import 'package:focus_fitnesss/Screens/AdminPanel/scan_code_page.dart';
 import 'package:focus_fitnesss/widgets/AdminScreen/admin_header.dart';
 
 class AdminMain extends StatefulWidget {

@@ -6,8 +6,6 @@ import 'package:focus_fitnesss/Screens/AdminPanel/admin_home.dart';
 import 'package:focus_fitnesss/Screens/check_auth.dart';
 import 'package:focus_fitnesss/Screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
-// ignore: unused_import
-import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
 import 'package:focus_fitnesss/const.dart';
 import 'firebase_options.dart';
 
@@ -15,7 +13,7 @@ void main() async {
   Gemini.init(apiKey: GEMINI_API_KEY);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform, 
   );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
