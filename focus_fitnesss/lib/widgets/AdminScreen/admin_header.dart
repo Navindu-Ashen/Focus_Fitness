@@ -25,7 +25,7 @@ class AdminHeader extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 15, left: 110),
               child: Text(
-                "Welcome to ADMIN PANEL",
+                "Welcome to User Control Panel",
                 style: TextStyle(
                     color: Color.fromARGB(255, 51, 49, 49),
                     fontSize: 14,
