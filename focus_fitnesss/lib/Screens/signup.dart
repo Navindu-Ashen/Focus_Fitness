@@ -93,6 +93,7 @@ class _SignupPageState extends State<SignupPage> {
         "height": enteredHeight,
         "weight": enteredWeight,
         "gender": selectedGender,
+        "qr-url" : "",
       });
 
       _form.currentState!.reset();
@@ -547,13 +548,7 @@ class _SignupPageState extends State<SignupPage> {
                                       color: Color.fromARGB(255, 172, 172, 172),
                                       size: 40,
                                     ),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (ctx) => GenerateCode(),
-                                        ),
-                                      );
-                                    },
+                                    onPressed: () {},
                                   ),
                                 ],
                               ),

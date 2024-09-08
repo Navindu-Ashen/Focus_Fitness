@@ -6,7 +6,7 @@ import 'package:focus_fitnesss/Screens/Profiles/profile.dart';
 import 'package:focus_fitnesss/Screens/attendance.dart';
 import 'package:focus_fitnesss/Screens/Recipes/recipe_all.dart';
 import 'package:focus_fitnesss/Screens/Workouts/workout_all.dart';
-import 'package:focus_fitnesss/widgets/HomeScreen/bmi.dart';
+import 'package:focus_fitnesss/Screens/generate_code.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/home_card2.dart';
 import 'package:focus_fitnesss/widgets/HomeScreen/home_row2.dart';
 import 'package:focus_fitnesss/widgets/header_bar.dart';
@@ -25,6 +25,7 @@ class HomeScreen extends StatefulWidget {
     required this.username,
     required this.attendance,
     required this.currentDay,
+    required this.qrUrl,
   });
 
   final String username;
@@ -35,6 +36,7 @@ class HomeScreen extends StatefulWidget {
   final String contactNumber;
   final List<dynamic> attendance;
   final String currentDay;
+  final String qrUrl;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -73,6 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
   }
+
+
 
   @override
   void initState() {
@@ -162,6 +166,15 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 50,
             ),
+            ElevatedButton(
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GenerateQRCode()));
+              },
+              child: Text("Test"),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),
@@ -177,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
         imageUrl: widget.imgUrl,
       );
     } else if (currentTab == 0) {
-      currentContent = AttendanceScreen(attendance: widget.attendance);
+      currentContent = AttendanceScreen(attendance: widget.attendance, qrUrl: widget.qrUrl,);
     }
 
     return Scaffold(

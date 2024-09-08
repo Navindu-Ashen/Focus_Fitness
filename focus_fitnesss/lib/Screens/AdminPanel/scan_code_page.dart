@@ -37,23 +37,9 @@ class _ScanCodeState extends State<ScanCode> {
         ),
         onDetect: (capture) {
           final List<Barcode> barcodes = capture.barcodes;
+          
           final Uint8List? image = capture.image;
-          for (final barcode in barcodes) {
-            print('Barcode found! ${barcode.rawValue}');
-          }
           if (image != null) {
-            // showDialog(
-            //     context: context,
-            //     builder: (context) {
-            //       return AlertDialog(
-            //         title: Text(
-            //           barcodes.first.rawValue ?? "",
-            //         ),
-            //         content: Image(
-            //           image: MemoryImage(image),
-            //         ),
-            //       );
-            //     });
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => ConfirmAttendance(

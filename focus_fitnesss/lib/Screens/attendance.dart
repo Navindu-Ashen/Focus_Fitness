@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:focus_fitnesss/Screens/attendance_list.dart';
 import 'package:focus_fitnesss/Screens/help_page.dart';
 
 class AttendanceScreen extends StatefulWidget {
-  const AttendanceScreen({super.key, required this.attendance});
+  const AttendanceScreen({
+    super.key,
+    required this.attendance,
+    required this.qrUrl,
+  });
 
   final List<dynamic> attendance;
+  final String qrUrl;
 
   @override
   State<AttendanceScreen> createState() => _AttendanceScreenState();
@@ -103,7 +107,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 color: const Color.fromARGB(255, 31, 31, 31),
-                child: Center(child: Image.asset("assets/testQR.png")),
+                child: Center(
+                  child: Image.network(
+                    widget.qrUrl,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 20,
