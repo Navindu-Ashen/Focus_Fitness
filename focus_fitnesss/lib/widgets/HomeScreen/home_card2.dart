@@ -73,6 +73,10 @@ class HomeCard2 extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 8),
                         child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                               const Color.fromARGB(255, 255, 94, 94),), 
+                          ),
                           onPressed: onButtonPress,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -82,7 +86,7 @@ class HomeCard2 extends StatelessWidget {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "Outfit-Regular",
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                             ),
                           ),

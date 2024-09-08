@@ -491,6 +491,7 @@ class _AdminMainState extends State<AdminMain> {
         activeColor: const Color.fromARGB(255, 255, 94, 94),
         height: 55,
         elevation: 3,
+        initialActiveIndex: 1,
         shadowColor: Colors.black87,
         color: Colors.white,
         onTap: (int index) {

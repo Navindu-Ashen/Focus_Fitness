@@ -107,11 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
               currentDay: widget.currentDay,
             ),
             const SizedBox(
-              height: 8,
+              height: 10,
             ),
             HomeRow(calories: calories),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             HomeCard2(
               buttonText: "See all pre-workouts",
@@ -207,11 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: ConvexAppBar(
-        backgroundColor: const Color.fromARGB(255, 60, 60, 60),
+        backgroundColor: Color.fromARGB(255, 63, 63, 63),
         activeColor: const Color.fromARGB(255, 255, 94, 94),
         height: 55,
         elevation: 3,
         shadowColor: Colors.black87,
+        initialActiveIndex: 1,
         color: Colors.white,
         onTap: (int index) {
           setState(() {

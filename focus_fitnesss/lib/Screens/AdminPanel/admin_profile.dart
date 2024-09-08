@@ -57,7 +57,7 @@ class _AdminProfileState extends State<AdminProfile> {
                     children: [
                       Center(
                         child: Text(
-                          "ADMIN PANEL",
+                          "User Control Panel",
                           style: TextStyle(
                               color: Color.fromARGB(255, 51, 49, 49),
                               fontSize: 14,
@@ -66,10 +66,10 @@ class _AdminProfileState extends State<AdminProfile> {
                       ),
                       Center(
                         child: Text(
-                          "Admin profile",
+                          "Management Profile",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 26,
+                              fontSize: 24,
                               fontWeight: FontWeight.w800),
                         ),
                       ),
@@ -93,7 +93,7 @@ class _AdminProfileState extends State<AdminProfile> {
                     Padding(
                       padding: EdgeInsets.only(left: 25),
                       child: Text(
-                        "Admin details :",
+                        "Management details :",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 22,
