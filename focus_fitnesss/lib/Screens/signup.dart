@@ -528,30 +528,7 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               ),
                               const SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                      "Generate your QR code from here :  ",
-                                      style: TextStyle(
-                                        color: const Color(0xFF2A2A2A),
-                                        decoration: TextDecoration.none,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  FloatingActionButton(
-                                    backgroundColor:
-                                         Color.fromARGB(255, 37, 37, 37),
-                                    child: Icon(
-                                      Icons.qr_code_2,
-                                      color: Color.fromARGB(255, 172, 172, 172),
-                                      size: 40,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              ),
+                              
                               const SizedBox(height: 25),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
