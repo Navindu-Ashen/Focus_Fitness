@@ -22,6 +22,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
   var contactNumber = "";
   var currentDay = "";
   List<dynamic> attendance = [];
+  var qrUrl = "";
 
   bool _isGetUserData = false;
 
@@ -41,6 +42,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
         contactNumber = userData["contact-number"];
         attendance = userData["attendance"];
         currentDay = userData["currentDay"];
+        qrUrl = userData["qr-url"];
       });
       _isGetUserData = true;
       return;
@@ -60,7 +62,9 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
             schedule: schedule,
             attendance: attendance,
             currentDay: currentDay,
+            qrUrl: qrUrl,
           ),
+
         ),
       );
     });

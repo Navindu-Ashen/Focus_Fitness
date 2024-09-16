@@ -1,14 +1,21 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:focus_fitnesss/widgets/AdminScreen/admin_header.dart';
 import 'package:focus_fitnesss/widgets/AdminScreen/data_field.dart';
 import 'package:intl/intl.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:path_provider/path_provider.dart';
 
 final formatter = DateFormat.yMd();
 
 final firestoreInstance = FirebaseFirestore.instance;
-                          
+
 class UserDetailPage extends StatefulWidget {
   const UserDetailPage({
     super.key,
@@ -54,6 +61,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
   bool attendaceMarcked = false;
   bool _isScheduleChanging = false;
   bool _isInstructorChanging = false;
+  String QrUrl = "";
+
+  // QR Data
+  GlobalKey qrKey = GlobalKey();
 
   List<dynamic> attendance = [];
   bool _getAttendaceData = false;
@@ -85,16 +96,13 @@ class _UserDetailPageState extends State<UserDetailPage> {
     _form.currentState!.save();
     FocusScope.of(context).unfocus();
 
-    setState(() {
-      _isScheduleChanging = true;
-    });
-
     await FirebaseFirestore.instance
         .collection("users")
         .doc(widget.userUid)
         .update({
       "schedule": selectedSchedule,
       "currentDay": "day1",
+      "qr-url" : QrUrl,
     });
 
     Navigator.of(context).pop();
@@ -296,6 +304,46 @@ class _UserDetailPageState extends State<UserDetailPage> {
     );
   }
 
+  Future<void> saveQRCodeToFile() async {
+    try {
+      print("Starting");
+      // Capture the QR code widget as an image
+      RenderRepaintBoundary boundary =
+          qrKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      print("step 1 done");
+      // Get the directory to save the file
+      final directory = await getExternalStorageDirectory();
+      final imagePath = '${directory!.path}/qr_code.png';
+      print("step 2 done");
+
+      setState(() {
+        _isScheduleChanging = true;
+      });
+      // Save the image as a PNG file
+      final file = File(imagePath);
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child("user-qr")
+          .child("${widget.userUid}.png");
+      print("Ref done");
+
+      await storageRef.putFile(await file.writeAsBytes(pngBytes));
+      print("Storing done");
+      QrUrl = await storageRef.getDownloadURL();
+      print(QrUrl);
+
+      submit();
+    } catch (e) {
+      print("Error saving QR code: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error saving QR code")),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -308,6 +356,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    String qrData = widget.userUid;
     if (widget.schedule == "") {
       currentSchedule = "Not available";
     } else {
@@ -433,6 +482,48 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     ),
                   ),
                 ),
+              const SizedBox(
+                height: 8,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Text(
+                  "User QR Code :",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              RepaintBoundary(
+                key: qrKey, // Key for capturing the widget
+                child: Center(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: PrettyQrView.data(
+                        data: qrData,
+                        decoration: const PrettyQrDecoration(
+                          background: Colors.white,
+                          image: PrettyQrDecorationImage(
+                            image: AssetImage("assets/logoSQRE.jpg"),
+                          ),
+                        ),
+                        errorCorrectLevel: QrErrorCorrectLevel.M,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               const Column(
                 children: [
                   Padding(
@@ -566,7 +657,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   height: 40,
                   width: 350,
                   child: ElevatedButton(
-                    onPressed: submit,
+                    onPressed: saveQRCodeToFile,
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       padding: const EdgeInsets.all(8),
